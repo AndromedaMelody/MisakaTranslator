@@ -24,7 +24,7 @@ namespace Misaka.WPF.SettingsPages
         {
             InitializeComponent();
 
-            PathBox.Text = Common.appSettings.LEPath;
+            PathBox.Text = Misaka.Settings.Legacy.Instance.appSettings.LEPath;
         }
 
         private void ChoosePathBtn_Click(object sender, RoutedEventArgs e)
@@ -42,7 +42,7 @@ namespace Misaka.WPF.SettingsPages
                 else
                 {
                     PathBox.Text = dialog.SelectedPath;
-                    Common.appSettings.LEPath = PathBox.Text;
+                    Misaka.Settings.Legacy.Instance.appSettings.LEPath = PathBox.Text;
                 }
             }
         }

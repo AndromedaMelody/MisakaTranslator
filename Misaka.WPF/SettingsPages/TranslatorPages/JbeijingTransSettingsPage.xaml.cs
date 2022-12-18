@@ -24,13 +24,13 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         public JbeijingTransSettingsPage()
         {
             InitializeComponent();
-            PathBox.Text = Common.appSettings.JBJCTDllPath;
+            PathBox.Text = Misaka.Settings.Legacy.Instance.appSettings.JBJCTDllPath;
         }
 
         private async void TransTestBtn_Click(object sender, RoutedEventArgs e)
         {
             ITranslator Trans = new JBeijingTranslator();
-            Trans.TranslatorInit(Common.appSettings.JBJCTDllPath, "");
+            Trans.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.JBJCTDllPath, "");
             string res = await Trans.TranslateAsync(TestSrcText.Text, "", "");
             if (res != null)
             {
@@ -56,7 +56,7 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
                 else
                 {
                     PathBox.Text = dialog.SelectedPath;
-                    Common.appSettings.JBJCTDllPath = PathBox.Text;
+                    Misaka.Settings.Legacy.Instance.appSettings.JBJCTDllPath = PathBox.Text;
                 }
             }
         }

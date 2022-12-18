@@ -24,7 +24,7 @@ namespace Misaka.WPF.SettingsPages
         {
             InitializeComponent();
 
-            var appSettingsOnClickCloseButton = Common.appSettings.OnClickCloseButton;
+            var appSettingsOnClickCloseButton = Misaka.Settings.Legacy.Instance.appSettings.OnClickCloseButton;
             switch (appSettingsOnClickCloseButton)
             {
                 case "Minimization":
@@ -35,7 +35,7 @@ namespace Misaka.WPF.SettingsPages
                     break;
             }
 
-            GrowlEnabledCheckBox.IsChecked = Common.appSettings.GrowlEnabled;
+            GrowlEnabledCheckBox.IsChecked = Misaka.Settings.Legacy.Instance.appSettings.GrowlEnabled;
         }
 
         private void RadioButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -44,17 +44,17 @@ namespace Misaka.WPF.SettingsPages
             switch (radioButton.Name)
             {
                 case "MinimizationRadioButton":
-                    Common.appSettings.OnClickCloseButton = "Minimization";
+                    Misaka.Settings.Legacy.Instance.appSettings.OnClickCloseButton = "Minimization";
                     break;
                 case "ExitRadioButton":
-                    Common.appSettings.OnClickCloseButton = "Exit";
+                    Misaka.Settings.Legacy.Instance.appSettings.OnClickCloseButton = "Exit";
                     break;
             }
         }
 
         private void GrowlEnabledCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.GrowlEnabled = GrowlEnabledCheckBox.IsChecked.Value;
+            Misaka.Settings.Legacy.Instance.appSettings.GrowlEnabled = GrowlEnabledCheckBox.IsChecked.Value;
         }
     }
 }

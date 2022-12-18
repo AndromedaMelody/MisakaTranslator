@@ -1,4 +1,4 @@
-﻿using Misaka.AppEnv;
+﻿using Misaka.Settings;
 using SQLHelperLibrary;
 using System;
 using System.Collections.Generic;
@@ -18,12 +18,12 @@ namespace TransOptimizationLibrary
         public string PeopleChatName;//显示在结果中的对话人名 以 人名：对话 的形式展示
 
         public NounTransOptimization(string gameName,string srcL,string dstL) {
-            if (File.Exists(PackageInfo.LocalFolder + "\\TransOptimization\\Misaka_" + gameName + ".sqlite") == false)
+            if (File.Exists(Package.DataPath + "\\TransOptimization\\Misaka_" + gameName + ".sqlite") == false)
             {
                 CreateNewNounTransDB(gameName);
             }
             else {
-                sqlite = new SQLHelper(PackageInfo.LocalFolder + "\\TransOptimization\\Misaka_" + gameName + ".sqlite");
+                sqlite = new SQLHelper(Package.DataPath + "\\TransOptimization\\Misaka_" + gameName + ".sqlite");
             }
             srcLangCode = srcL;
             dstLangCode = dstL;
@@ -110,7 +110,7 @@ namespace TransOptimizationLibrary
         /// </summary>
         /// <param name="gameName"></param>
         private void CreateNewNounTransDB(string gameName) {
-            sqlite = new SQLHelper(PackageInfo.LocalFolder + "\\TransOptimization\\Misaka_" + gameName + ".sqlite");
+            sqlite = new SQLHelper(Package.DataPath + "\\TransOptimization\\Misaka_" + gameName + ".sqlite");
             sqlite.ExecuteSql("CREATE TABLE NounTransOpt(source TEXT PRIMARY KEY,src_lang TEXT,type INT,userTrans TEXT,dst_lang TEXT,machineTrans TEXT);");
         }
     }

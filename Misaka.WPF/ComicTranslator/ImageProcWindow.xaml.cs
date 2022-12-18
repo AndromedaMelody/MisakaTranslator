@@ -86,7 +86,7 @@ namespace Misaka.WPF.ComicTranslator
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            ImageSave(ink, AppEnv.PackageInfo.TemporaryFolder + "\\comicTemp.png");
+            ImageSave(ink, Settings.Package.TemporaryPath + "\\comicTemp.png");
             this.Close();
         }
 

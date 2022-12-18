@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Misaka.AppEnv;
+using Misaka.Settings;
 
 namespace TransOptimizationLibrary
 {
@@ -16,8 +16,8 @@ namespace TransOptimizationLibrary
 
 
         public BeforeTransHandle(string gameName,string srcLang,string dstLang) {
-            if (!Directory.Exists(PackageInfo.LocalFolder + "\\TransOptimization"))
-                Directory.CreateDirectory(PackageInfo.LocalFolder + "\\TransOptimization");
+            if (!Directory.Exists(Package.DataPath + "\\TransOptimization"))
+                Directory.CreateDirectory(Package.DataPath + "\\TransOptimization");
 
             nto = new NounTransOptimization(gameName,srcLang,dstLang);
         }

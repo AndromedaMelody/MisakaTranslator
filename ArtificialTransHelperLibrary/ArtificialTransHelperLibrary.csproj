@@ -7,9 +7,9 @@
     <Platforms>x86;x64;ARM64</Platforms>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\Misaka.AppEnv\Misaka.AppEnv.vcxproj" />
+    <ProjectReference Include="..\Misaka.Settings\Misaka.Settings.vcxproj" />
     <ProjectReference Include="..\SQLHelperLibrary\SQLHelperLibrary.csproj" />
   </ItemGroup>
 

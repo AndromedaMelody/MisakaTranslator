@@ -31,7 +31,7 @@ namespace Misaka.WPF.GuidePages.Hook
             HookFunListView.ItemsSource = lstData;
             sum = 0;
             Common.textHooker.HFRSevent += DataRecvEventHandler;
-            Common.textHooker.StartHook(Convert.ToBoolean(Common.appSettings.AutoHook));
+            Common.textHooker.StartHook(Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoHook));
             var task_1 = System.Threading.Tasks.Task.Run(async delegate
             {
                 await System.Threading.Tasks.Task.Delay(3000);
@@ -65,9 +65,9 @@ namespace Misaka.WPF.GuidePages.Hook
 
                 Common.textHooker.MisakaCodeList.Add(lstData[HookFunListView.SelectedIndex].MisakaHookCode);
 
-                //Common.textHooker.DetachUnrelatedHookWhenDataRecv = Convert.ToBoolean(Common.appSettings.AutoDetach);
+                //Common.textHooker.DetachUnrelatedHookWhenDataRecv = Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoDetach);
                 //用户开启了自动卸载
-                if (Convert.ToBoolean(Common.appSettings.AutoDetach) == true)
+                if (Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoDetach) == true)
                 {
                     List<string> usedHook = new List<string>();
                     usedHook.Add(lstData[HookFunListView.SelectedIndex].HookAddress);

@@ -24,7 +24,7 @@ namespace Misaka.WPF.SettingsPages.DictionaryPages
         public XxgJpZhDictPage()
         {
             InitializeComponent();
-            PathBox.Text = Common.appSettings.xxgPath;
+            PathBox.Text = Misaka.Settings.Legacy.Instance.appSettings.xxgPath;
         }
 
         private void ChoosePathBtn_Click(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace Misaka.WPF.SettingsPages.DictionaryPages
                 else
                 {
                     PathBox.Text = dialog.FileName;
-                    Common.appSettings.xxgPath = PathBox.Text;
+                    Misaka.Settings.Legacy.Instance.appSettings.xxgPath = PathBox.Text;
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace Misaka.WPF.SettingsPages.DictionaryPages
         {
             IDict dict = new XxgJpzhDict();
 
-            dict.DictInit(Common.appSettings.xxgPath, "");
+            dict.DictInit(Misaka.Settings.Legacy.Instance.appSettings.xxgPath, "");
 
             string ret = dict.SearchInDict(TestSrcText.Text);
             if (ret != null)

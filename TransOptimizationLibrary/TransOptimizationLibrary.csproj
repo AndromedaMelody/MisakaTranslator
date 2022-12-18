@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Misaka.AppEnv\Misaka.AppEnv.vcxproj" />
+    <ProjectReference Include="..\Misaka.Settings\Misaka.Settings.vcxproj" />
     <ProjectReference Include="..\SQLHelperLibrary\SQLHelperLibrary.csproj" />
   </ItemGroup>
 

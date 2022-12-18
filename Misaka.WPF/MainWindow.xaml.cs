@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
-using Config.Net;
 using HandyControl.Controls;
 using KeyboardMouseHookLibrary;
 using OCRLibrary;
@@ -26,16 +25,15 @@ namespace Misaka.WPF {
             Instance = this;
             Common.mainWin = this;
 
-            var settings = new ConfigurationBuilder<IAppSettings>().UseIniFile($@"{AppEnv.PackageInfo.LocalFolder}\settings\settings.ini").Build();
             InitializeLanguage();
             InitializeComponent();
-            Initialize(settings);
+            Initialize();
             GrowlDisableSwitch();
 
             //注册全局OCR热键
             this.SourceInitialized += new EventHandler(MainWindow_SourceInitialized);
 
-            if (AppEnv.PackageInfo.RunWithId)
+            if (Settings.Package.RunWithPackageId)
             {
                 this.Title = $"{this.Title} - DesktopBridge Mode";
             }
@@ -43,9 +41,8 @@ namespace Misaka.WPF {
 
         private static void InitializeLanguage() {
             var appResource = Application.Current.Resources.MergedDictionaries;
-            Common.appSettings = new ConfigurationBuilder<IAppSettings>().UseIniFile($"{AppEnv.PackageInfo.LocalFolder}\\settings\\settings.ini").Build();
             foreach (var item in appResource) {
-                if (item.Source.ToString().Contains("lang") && item.Source.ToString() != $@"lang/{Common.appSettings.AppLanguage}.xaml") {
+                if (item.Source.ToString().Contains("lang") && item.Source.ToString() != $@"lang/{Misaka.Settings.Legacy.Instance.appSettings.AppLanguage}.xaml") {
                     appResource.Remove(item);
                     break;
                 }
@@ -57,10 +54,9 @@ namespace Misaka.WPF {
             Common.GlobalOCR();
         }
 
-        private void Initialize(IAppSettings settings) {
-            this.Resources["Foreground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(settings.ForegroundHex));
+        private void Initialize() {
+            this.Resources["Foreground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(Misaka.Settings.Legacy.Instance.appSettings.ForegroundHex));
             gameInfoList = GameLibraryHelper.GetAllGameLibrary();
-            Common.repairSettings = new ConfigurationBuilder<IRepeatRepairSettings>().UseIniFile(AppEnv.PackageInfo.LocalFolder + "\\settings\\RepairSettings.ini").Build();
             GameLibraryPanel_Init();
             //先初始化这两个语言，用于全局OCR识别
             Common.UsingDstLang = "zh";
@@ -144,7 +140,7 @@ namespace Misaka.WPF {
             HwndSource.FromHwnd(hwnd)?.AddHook(WndProc);
             //注册热键
             Common.GlobalOCRHotKey = new GlobalHotKey();
-            if (Common.GlobalOCRHotKey.RegisterHotKeyByStr(Common.appSettings.GlobalOCRHotkey, hwnd, CallBack) == false) {
+            if (Common.GlobalOCRHotKey.RegisterHotKeyByStr(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRHotkey, hwnd, CallBack) == false) {
                 Growl.ErrorGlobal(Application.Current.Resources["MainWindow_GlobalOCRError_Hint"].ToString());
             }
         }
@@ -246,14 +242,14 @@ namespace Misaka.WPF {
 
             switch (Common.UsingRepairFunc) {
                 case "RepairFun_RemoveSingleWordRepeat":
-                    Common.repairSettings.SingleWordRepeatTimes = int.Parse(gameInfoList[gid].RepairParamA);
+                    Misaka.Settings.Legacy.Instance.repairSettings.SingleWordRepeatTimes = int.Parse(gameInfoList[gid].RepairParamA);
                     break;
                 case "RepairFun_RemoveSentenceRepeat":
-                    Common.repairSettings.SentenceRepeatFindCharNum = int.Parse(gameInfoList[gid].RepairParamA);
+                    Misaka.Settings.Legacy.Instance.repairSettings.SentenceRepeatFindCharNum = int.Parse(gameInfoList[gid].RepairParamA);
                     break;
                 case "RepairFun_RegexReplace":
-                    Common.repairSettings.Regex = gameInfoList[gid].RepairParamA;
-                    Common.repairSettings.Regex_Replace = gameInfoList[gid].RepairParamB;
+                    Misaka.Settings.Legacy.Instance.repairSettings.Regex = gameInfoList[gid].RepairParamA;
+                    Misaka.Settings.Legacy.Instance.repairSettings.Regex_Replace = gameInfoList[gid].RepairParamB;
                     break;
                 default:
                     break;
@@ -279,8 +275,8 @@ namespace Misaka.WPF {
                 //无重复码。直接进游戏
                 Common.textHooker.MisakaCodeList = null;
                 //2020-06-08 大部分情况无重复码的游戏不会hook到很多，不进行去多余hook
-                //Common.textHooker.DetachUnrelatedHookWhenDataRecv = Convert.ToBoolean(Common.appSettings.AutoDetach);
-                await Common.textHooker.StartHook(Convert.ToBoolean(Common.appSettings.AutoHook));
+                //Common.textHooker.DetachUnrelatedHookWhenDataRecv = Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoDetach);
+                await Common.textHooker.StartHook(Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoHook));
 
                 await Task.Delay(3000);
                 Common.textHooker.Auto_AddHookToGame();
@@ -325,7 +321,7 @@ namespace Misaka.WPF {
         private async void LEStartBtn_Click(object sender, RoutedEventArgs e) {
             var filepath = gameInfoList[gid].FilePath;
             var p = new ProcessStartInfo();
-            var lePath = Common.appSettings.LEPath;
+            var lePath = Misaka.Settings.Legacy.Instance.appSettings.LEPath;
             p.FileName = lePath + "\\LEProc.exe";
             // 记住加上引号，否则可能会因为路径带空格而无法启动
             p.Arguments = $"-run \"{filepath}\"";
@@ -340,7 +336,7 @@ namespace Misaka.WPF {
 
         private void BlurWindow_Closing(object sender, CancelEventArgs e) {
             e.Cancel = true;
-            switch (Common.appSettings.OnClickCloseButton) {
+            switch (Misaka.Settings.Legacy.Instance.appSettings.OnClickCloseButton) {
                 case "Minimization":
                     Visibility = Visibility.Collapsed;
                     break;
@@ -367,11 +363,11 @@ namespace Misaka.WPF {
             if (sender is MenuItem menuItem) {
                 switch (menuItem.Tag) {
                     case "zh-cn":
-                        Common.appSettings.AppLanguage = "zh-CN";
+                        Misaka.Settings.Legacy.Instance.appSettings.AppLanguage = "zh-CN";
                         HandyControl.Controls.MessageBox.Show("语言配置已修改！重启软件后生效！", "提示");
                         break;
                     case "en-us":
-                        Common.appSettings.AppLanguage = "en-US";
+                        Misaka.Settings.Legacy.Instance.appSettings.AppLanguage = "en-US";
                         HandyControl.Controls.MessageBox.Show("Language configuration has been modified! It will take effect after restarting MisakaTranslator!", "Hint");
                         break;
                 }
@@ -456,7 +452,7 @@ namespace Misaka.WPF {
         /// 允许关闭全局通知。实际做法是新建了一个无关联的panel，那些通知本质上还是会生成。
         /// </summary>
         void GrowlDisableSwitch() {
-            if (!Common.appSettings.GrowlEnabled) {
+            if (!Misaka.Settings.Legacy.Instance.appSettings.GrowlEnabled) {
                 Growl.InfoGlobal("将不会显示全局通知。"); // 必须先显示一句否则GrowlWindow是null
                 var gw = typeof(Growl).GetField("GrowlWindow", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null);
                 var panel = gw.GetType().GetProperty("GrowlPanel", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);

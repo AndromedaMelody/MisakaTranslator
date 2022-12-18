@@ -33,12 +33,12 @@ namespace Misaka.WPF
         {
             OCREngine ocr;
             string res = null;
-            if (Common.appSettings.OCRsource == "TesseractOCR")
+            if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "TesseractOCR")
             {
                 ocr = new TesseractOCR();
                 if (ocr.OCR_Init("", "") != false)
                 {
-                    ocr.SetOCRSourceLang(Common.appSettings.GlobalOCRLang);
+                    ocr.SetOCRSourceLang(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang);
                     res = await ocr.OCRProcessAsync(img);
 
                     if (res != null)
@@ -55,12 +55,12 @@ namespace Misaka.WPF
                     HandyControl.Controls.Growl.ErrorGlobal($"TesseractOCR {Application.Current.Resources["APITest_Error_Hint"]}\n{ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "Tesseract5")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "Tesseract5")
             {
                 ocr = new Tesseract5OCR();
-                if (ocr.OCR_Init(Common.appSettings.Tesseract5OCR_Path, Common.appSettings.Tesseract5OCR_Args))
+                if (ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Path, Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args))
                 {
-                    ocr.SetOCRSourceLang(Common.appSettings.GlobalOCRLang);
+                    ocr.SetOCRSourceLang(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang);
                     res = await ocr.OCRProcessAsync(img);
 
                     if (res != null)
@@ -77,12 +77,12 @@ namespace Misaka.WPF
                     HandyControl.Controls.Growl.ErrorGlobal($"Tesseract5 {Application.Current.Resources["APITest_Error_Hint"]}\n{ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "BaiduOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "BaiduOCR")
             {
                 ocr = new BaiduGeneralOCR();
-                if (ocr.OCR_Init(Common.appSettings.BDOCR_APIKEY, Common.appSettings.BDOCR_SecretKey))
+                if (ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.BDOCR_APIKEY, Misaka.Settings.Legacy.Instance.appSettings.BDOCR_SecretKey))
                 {
-                    ocr.SetOCRSourceLang(Common.appSettings.GlobalOCRLang);
+                    ocr.SetOCRSourceLang(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang);
                     res = await ocr.OCRProcessAsync(img);
 
                     if (res != null)
@@ -99,12 +99,12 @@ namespace Misaka.WPF
                     HandyControl.Controls.Growl.ErrorGlobal($"百度智能云OCR {Application.Current.Resources["APITest_Error_Hint"]}\n{ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "BaiduFanyiOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "BaiduFanyiOCR")
             {
                 ocr = new BaiduFanyiOCR();
-                if (ocr.OCR_Init(Common.appSettings.BDappID, Common.appSettings.BDsecretKey))
+                if (ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.BDappID, Misaka.Settings.Legacy.Instance.appSettings.BDsecretKey))
                 {
-                    ocr.SetOCRSourceLang(Common.appSettings.GlobalOCRLang);
+                    ocr.SetOCRSourceLang(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang);
                     res = await ocr.OCRProcessAsync(img);
 
                     if (res != null)
@@ -115,12 +115,12 @@ namespace Misaka.WPF
                 else
                     HandyControl.Controls.Growl.ErrorGlobal($"百度翻译OCR {Application.Current.Resources["APITest_Error_Hint"]}\n{ocr.GetLastError()}");
             }
-            else if (Common.appSettings.OCRsource == "WinRtOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "WinRtOCR")
             {
                 ocr = new WinRtOCR();
                 if (ocr.OCR_Init("", "") != false)
                 {
-                    ocr.SetOCRSourceLang(Common.appSettings.GlobalOCRLang);
+                    ocr.SetOCRSourceLang(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang);
                     res = await ocr.OCRProcessAsync(img);
 
                     if (res != null)
@@ -142,11 +142,11 @@ namespace Misaka.WPF
             {
                 FirstTransText.Text = "OCR ERROR";
             }
-            else if (Common.appSettings.OCRsource != "BaiduFanyiOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource != "BaiduFanyiOCR")
             {
                 // 因为历史原因，OCR的源语言用的是三个字母的，如eng和jpn。而翻译的API即Common.UsingSrcLang用的两个字母，如en和jp
                 string srclang;
-                switch(Common.appSettings.GlobalOCRLang){
+                switch(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang){
                     case "eng":
                         srclang = "en";
                         break;
@@ -154,18 +154,18 @@ namespace Misaka.WPF
                         srclang = "jp";
                         break;
                     default:
-                        srclang = Common.appSettings.GlobalOCRLang;
+                        srclang = Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang;
                         break;
                 }
 
-                if (!Common.appSettings.EachRowTrans)
+                if (!Misaka.Settings.Legacy.Instance.appSettings.EachRowTrans)
                     if (srclang == "en")
                         res = res.Replace("\n", " ").Replace("\r", " ");
                     else
                         res = res.Replace("\n", "").Replace("\r", "");
 
-                ITranslator translator1 = TranslateWindow.TranslatorAuto(Common.appSettings.FirstTranslator);
-                ITranslator translator2 = TranslateWindow.TranslatorAuto(Common.appSettings.SecondTranslator);
+                ITranslator translator1 = TranslateWindow.TranslatorAuto(Misaka.Settings.Legacy.Instance.appSettings.FirstTranslator);
+                ITranslator translator2 = TranslateWindow.TranslatorAuto(Misaka.Settings.Legacy.Instance.appSettings.SecondTranslator);
                 //5.提交翻译
                 string transRes1 = "";
                 string transRes2 = "";

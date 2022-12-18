@@ -24,7 +24,7 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         public DreyeTransSettingsPage()
         {
             InitializeComponent();
-            PathBox.Text = Common.appSettings.DreyePath;
+            PathBox.Text = Misaka.Settings.Legacy.Instance.appSettings.DreyePath;
         }
 
         private void ChoosePathBtn_Click(object sender, RoutedEventArgs e)
@@ -40,7 +40,7 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
                 else
                 {
                     PathBox.Text = dialog.SelectedPath;
-                    Common.appSettings.DreyePath = PathBox.Text;
+                    Misaka.Settings.Legacy.Instance.appSettings.DreyePath = PathBox.Text;
                 }
             }
         }
@@ -48,7 +48,7 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         private async void TransTestBtn_Click(object sender, RoutedEventArgs e)
         {
             ITranslator Trans = new DreyeTranslator();
-            Trans.TranslatorInit(Common.appSettings.DreyePath, "");
+            Trans.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.DreyePath, "");
             string res = await Trans.TranslateAsync(TestSrcText.Text, "zh", TestSrcLang.Text);
             if (res != null)
             {

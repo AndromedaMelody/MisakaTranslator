@@ -27,11 +27,11 @@ namespace Misaka.WPF.SettingsPages
         {
             InitializeComponent();
 
-            ATonCheckBox.IsChecked = Common.appSettings.ATon;
-            PathBox.Text = Common.appSettings.ArtificialPatchPath;
+            ATonCheckBox.IsChecked = Misaka.Settings.Legacy.Instance.appSettings.ATon;
+            PathBox.Text = Misaka.Settings.Legacy.Instance.appSettings.ArtificialPatchPath;
 
-            if (Directory.Exists(AppEnv.PackageInfo.LocalFolder + "\\ArtificialTranslation")) {
-                strNames = Directory.GetFiles(AppEnv.PackageInfo.LocalFolder + "\\ArtificialTranslation");
+            if (Directory.Exists(Settings.Package.DataPath + "\\ArtificialTranslation")) {
+                strNames = Directory.GetFiles(Settings.Package.DataPath + "\\ArtificialTranslation");
 
                 List<string> fileList = new List<string>();
 
@@ -62,7 +62,7 @@ namespace Misaka.WPF.SettingsPages
             if (dialog.ShowDialog().GetValueOrDefault())
             {
                 PathBox.Text = dialog.FileName;
-                Common.appSettings.ArtificialPatchPath = PathBox.Text;
+                Misaka.Settings.Legacy.Instance.appSettings.ArtificialPatchPath = PathBox.Text;
             }
             else
             {
@@ -72,7 +72,7 @@ namespace Misaka.WPF.SettingsPages
 
         private void ATonCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.ATon = (bool)ATonCheckBox.IsChecked;
+            Misaka.Settings.Legacy.Instance.appSettings.ATon = (bool)ATonCheckBox.IsChecked;
         }
 
         private void ExportBtn_Click(object sender, RoutedEventArgs e)
