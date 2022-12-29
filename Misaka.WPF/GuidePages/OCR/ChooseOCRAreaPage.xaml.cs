@@ -34,7 +34,7 @@ namespace Misaka.WPF.GuidePages.OCR
         {
             InitializeComponent();
 
-            Common.ocr = OCRCommon.OCRAuto(Common.appSettings.OCRsource);
+            Common.ocr = OCRCommon.OCRAuto(Misaka.Settings.Legacy.Instance.appSettings.OCRsource);
 
             //初始化钩子对象
             if (hook == null)

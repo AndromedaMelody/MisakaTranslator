@@ -24,14 +24,14 @@ namespace Misaka.WPF.SettingsPages.OCRPages
         public BaiduOCRPage()
         {
             InitializeComponent();
-            APIKEYBox.Text = Common.appSettings.BDOCR_APIKEY;
-            SecretKeyBox.Text = Common.appSettings.BDOCR_SecretKey;
+            APIKEYBox.Text = Misaka.Settings.Legacy.Instance.appSettings.BDOCR_APIKEY;
+            SecretKeyBox.Text = Misaka.Settings.Legacy.Instance.appSettings.BDOCR_SecretKey;
         }
 
         private void AuthTestBtn_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.BDOCR_APIKEY = APIKEYBox.Text;
-            Common.appSettings.BDOCR_SecretKey = SecretKeyBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.BDOCR_APIKEY = APIKEYBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.BDOCR_SecretKey = SecretKeyBox.Text;
 
             if(APIKEYBox.Text.Length == 17)
             {

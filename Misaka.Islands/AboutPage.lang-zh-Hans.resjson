@@ -1,0 +1,16 @@
+﻿{
+    "AutoUpdateCheckBox/Content": "自动检查更新",
+    "CheckUpdateButton/Text": "检查更新",
+    "CheckUpdateTip": {
+        "ActionButtonContent": "下载",
+        "CloseButtonContent": "忽略",
+        "Subtitle": "更新",
+        "Title": "检查更新"
+    },
+    "IssuesButton/Label": "反馈",
+    "NightlyBuildButton/Text": "每夜构建",
+    "ReleaseHistoryButton/Text": "历史版本",
+    "ReleasesButton/Label": "发布",
+    "SourceCodeButton/Label": "源码",
+    "WikiButton/Label": "帮助"
+}

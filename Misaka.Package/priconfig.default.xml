@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <default>
-  <qualifier name="Language" value="zh-CN" />
+  <qualifier name="Language" value="en" />
   <qualifier name="Scale" value="400" />
   <qualifier name="TargetSize" value="256" />
 </default>

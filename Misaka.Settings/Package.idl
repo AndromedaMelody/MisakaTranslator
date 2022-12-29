@@ -1,0 +1,11 @@
+namespace Misaka.Settings
+{
+    [default_interface]
+    static runtimeclass Package
+    {
+        static Boolean RunWithPackageId { get; };
+        static String ProgramPath { get; };
+        static String DataPath { get; };
+        static String TemporaryPath { get; };
+    }
+}

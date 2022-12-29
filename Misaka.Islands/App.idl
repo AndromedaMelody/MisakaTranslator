@@ -1,0 +1,8 @@
+namespace Misaka.Islands
+{
+    [default_interface]
+    runtimeclass App : Mile.Xaml.Application
+    {
+        App();
+    }
+}

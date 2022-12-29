@@ -1,0 +1,16 @@
+﻿{
+    "AutoUpdateCheckBox/Content": "Automatically check updates",
+    "CheckUpdateButton/Text": "Check Update",
+    "CheckUpdateTip": {
+        "ActionButtonContent": "Download",
+        "CloseButtonContent": "Ignore",
+        "Subtitle": "Update",
+        "Title": "Check Update"
+    },
+    "IssuesButton/Label": "Feedback",
+    "NightlyBuildButton/Text": "Nightly Builds",
+    "ReleaseHistoryButton/Text": "History Releases",
+    "ReleasesButton/Label": "Releases",
+    "SourceCodeButton/Label": "Source Code",
+    "WikiButton/Label": "Get Help"
+}

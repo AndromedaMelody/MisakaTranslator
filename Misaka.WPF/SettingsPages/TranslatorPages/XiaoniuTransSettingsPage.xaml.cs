@@ -24,12 +24,12 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         public XiaoniuTransSettingsPage()
         {
             InitializeComponent();
-            TransTokenBox.Text = Common.appSettings.xiaoniuApiKey;
+            TransTokenBox.Text = Misaka.Settings.Legacy.Instance.appSettings.xiaoniuApiKey;
         }
 
         private async void AuthTestBtn_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.xiaoniuApiKey = TransTokenBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.xiaoniuApiKey = TransTokenBox.Text;
             ITranslator Trans = new XiaoniuTranslator();
             Trans.TranslatorInit(TransTokenBox.Text, "");
             if (await Trans.TranslateAsync("apple", "zh", "en") != null)
@@ -60,7 +60,7 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         private async void TransTestBtn_Click(object sender, RoutedEventArgs e)
         {
             ITranslator Trans = new XiaoniuTranslator();
-            Trans.TranslatorInit(Common.appSettings.xiaoniuApiKey, "");
+            Trans.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.xiaoniuApiKey, "");
             string res = await Trans.TranslateAsync(TestSrcText.Text, TestDstLang.Text, TestSrcLang.Text);
             if (res != null)
             {

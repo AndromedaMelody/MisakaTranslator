@@ -1,0 +1,15 @@
+﻿{
+    "DictionaryItem/Content": "翻译词典",
+    "ExtractorItem/Content": "文本提取",
+    "GameEnvironmentItem/Content": "游戏转区",
+    "AboutItem/Content": "主页",
+    "LayerItem/Content": "用户界面",
+    "MachineTranslateItem/Content": "机器翻译",
+    "ManualTranslateItem/Content": "人工翻译",
+    "OpticalCharacterRecognitionItem/Content": "文字识别",
+    "TextToSpeechItem/Content": "文本朗读",
+    "NavigationView": {
+        "Header": "设置",
+        "PaneTitle": "设置"
+    }
+}

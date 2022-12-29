@@ -1,0 +1,10 @@
+{
+    "Manifest/DisplayName": "MisakaTranslator",
+    "MainWindow": {
+        "ExecutionMode": {
+            "Centennial": "DesktopBridge",
+            "Classic": "Green"
+        },
+        "Title": "MisakaTranslator"
+    }
+}

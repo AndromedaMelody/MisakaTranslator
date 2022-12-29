@@ -62,33 +62,33 @@ namespace Misaka.WPF.ComicTranslator
 
             transRes1 = "";
             transRes2 = "";
-            _translator1 = TranslateWindow.TranslatorAuto(Common.appSettings.FirstTranslator);
-            _translator2 = TranslateWindow.TranslatorAuto(Common.appSettings.SecondTranslator);
+            _translator1 = TranslateWindow.TranslatorAuto(Misaka.Settings.Legacy.Instance.appSettings.FirstTranslator);
+            _translator2 = TranslateWindow.TranslatorAuto(Misaka.Settings.Legacy.Instance.appSettings.SecondTranslator);
 
-            ocr = OCRCommon.OCRAuto(Common.appSettings.OCRsource);
-            ocr.SetOCRSourceLang(Common.appSettings.GlobalOCRLang);
-            if (Common.appSettings.OCRsource == "BaiduOCR")
+            ocr = OCRCommon.OCRAuto(Misaka.Settings.Legacy.Instance.appSettings.OCRsource);
+            ocr.SetOCRSourceLang(Misaka.Settings.Legacy.Instance.appSettings.GlobalOCRLang);
+            if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "BaiduOCR")
             {
-                if (ocr.OCR_Init(Common.appSettings.BDOCR_APIKEY, Common.appSettings.BDOCR_SecretKey) == false)
+                if (ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.BDOCR_APIKEY, Misaka.Settings.Legacy.Instance.appSettings.BDOCR_SecretKey) == false)
                 {
                     HandyControl.Controls.Growl.ErrorGlobal($"百度智能云OCR {Application.Current.Resources["APITest_Error_Hint"]}\n{ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "BaiduFanyiOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "BaiduFanyiOCR")
             {
-                if (ocr.OCR_Init(Common.appSettings.BDappID, Common.appSettings.BDsecretKey) == false)
+                if (ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.BDappID, Misaka.Settings.Legacy.Instance.appSettings.BDsecretKey) == false)
                 {
                     HandyControl.Controls.Growl.ErrorGlobal($"百度翻译OCR {Application.Current.Resources["APITest_Error_Hint"]}\n{ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "Tesseract5")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "Tesseract5")
             {
-                if (ocr.OCR_Init(Common.appSettings.Tesseract5OCR_Path, Common.appSettings.Tesseract5OCR_Args) == false)
+                if (ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Path, Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args) == false)
                 {
                     HandyControl.Controls.Growl.ErrorGlobal($"Tesseract5 {Application.Current.Resources["APITest_Error_Hint"]}\n{ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "WinRtOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "WinRtOCR")
             {
                 if (ocr.OCR_Init("", "") == false)
                 {
@@ -147,9 +147,9 @@ namespace Misaka.WPF.ComicTranslator
                 ipw.ShowDialog();
                 bmp.Dispose();
 
-                if (File.Exists(AppEnv.PackageInfo.TemporaryFolder + "\\comicTemp.png"))
+                if (File.Exists(Settings.Package.TemporaryPath + "\\comicTemp.png"))
                 {
-                    Bitmap bm = new Bitmap(AppEnv.PackageInfo.TemporaryFolder + "\\comicTemp.png");
+                    Bitmap bm = new Bitmap(Settings.Package.TemporaryPath + "\\comicTemp.png");
                     bm = ImageProcFunc.ColorToGrayscale(bm);
                     sourceTextBox.Text = (await ocr.OCRProcessAsync(bm))?.Replace("\f", "");
                     bm.Dispose();

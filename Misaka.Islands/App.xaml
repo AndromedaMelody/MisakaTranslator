@@ -1,0 +1,10 @@
+﻿<islands:Application
+    x:Class="Misaka.Islands.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Misaka.Islands"
+    xmlns:islands="using:Mile.Xaml">
+    <Application.Resources>
+        <islands:XamlControlsResources />
+    </Application.Resources>
+</islands:Application>

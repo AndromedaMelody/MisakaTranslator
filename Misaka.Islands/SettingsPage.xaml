@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="Misaka.Islands.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Misaka.Islands"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Content>
+        <NavigationView x:Name="SettingsNavigation" x:Uid="ms-resource:///SettingsPage/NavigationView" IsBackEnabled="True" IsBackButtonVisible="Visible" IsPaneToggleButtonVisible="True" IsSettingsVisible="False" PaneDisplayMode="Auto" SelectionChanged="NavView_SelectionChanged" SelectedItem="{Binding MenuItems[0], ElementName=SettingsNavigation, Mode=OneTime}" ExpandedModeThresholdWidth="99999">
+            <NavigationView.Resources>
+                <ResourceDictionary>
+                    <Thickness x:Key="NavigationViewHeaderMargin">12,0,0,0</Thickness>
+                    <Thickness x:Key="NavigationViewMinimalHeaderMargin">96,0,0,0</Thickness>
+                    <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="Transparent" />
+                    <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" BackgroundSource="Backdrop" TintColor="{ThemeResource SystemChromeMediumLowColor}" TintOpacity="0.8"/>
+                    <Visibility x:Key="MenuItemsHostTopSeparatorVisibility">Visible</Visibility>
+                </ResourceDictionary>
+            </NavigationView.Resources>
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search" />
+            </NavigationView.AutoSuggestBox>
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/AboutItem" Icon="Home" Tag="About" />
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/LayerItem" Tag="SamplePage1">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE81E;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/GameEnvironmentItem" Tag="SamplePage1">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xF49A;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/ExtractorItem" Icon="Trim" Tag="SamplePage1" />
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/OpticalCharacterRecognitionItem" Tag="SamplePage1">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE960;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/MachineTranslateItem" Icon="Character" Tag="SamplePage1" />
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/DictionaryItem" Tag="SamplePage1">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE82D;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/TextToSpeechItem" Tag="SamplePage1">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xED1F;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="ms-resource:///SettingsPage/ManualTranslateItem" Icon="OtherUser" Tag="SamplePage1" />
+            </NavigationView.MenuItems>
+            <NavigationView.Content>
+                <Frame x:Name="ContentFrame" IsTabStop="True">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition />
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+            </NavigationView.Content>
+        </NavigationView>
+    </Page.Content>
+</Page>

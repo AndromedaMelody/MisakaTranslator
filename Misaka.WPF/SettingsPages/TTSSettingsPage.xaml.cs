@@ -33,14 +33,14 @@ namespace Misaka.WPF.SettingsPages
 
             for (int i = 0; i < lst.Count; i++)
             {
-                if (lst[i] == Common.appSettings.ttsVoice)
+                if (lst[i] == Misaka.Settings.Legacy.Instance.appSettings.ttsVoice)
                 {
                     TTSSourceCombox.SelectedIndex = i;
                     break;
                 }
             }
-            VolumeBar.Value = Common.appSettings.ttsVolume;
-            RateBar.Value = Common.appSettings.ttsRate;
+            VolumeBar.Value = Misaka.Settings.Legacy.Instance.appSettings.ttsVolume;
+            RateBar.Value = Misaka.Settings.Legacy.Instance.appSettings.ttsRate;
         }
 
         private void TTSSourceCombox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,9 +51,9 @@ namespace Misaka.WPF.SettingsPages
         private void TestBtn_Click(object sender, RoutedEventArgs e)
         {
             tsh.SpeakAsync(TestSrcText.Text);
-            Common.appSettings.ttsVoice = (string) TTSSourceCombox.SelectedValue;
-            Common.appSettings.ttsVolume = (int) VolumeBar.Value;
-            Common.appSettings.ttsRate = (int) RateBar.Value;
+            Misaka.Settings.Legacy.Instance.appSettings.ttsVoice = (string) TTSSourceCombox.SelectedValue;
+            Misaka.Settings.Legacy.Instance.appSettings.ttsVolume = (int) VolumeBar.Value;
+            Misaka.Settings.Legacy.Instance.appSettings.ttsRate = (int) RateBar.Value;
         }
 
         private void VolumeBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

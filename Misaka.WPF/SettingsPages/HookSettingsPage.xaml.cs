@@ -13,18 +13,18 @@ namespace Misaka.WPF.SettingsPages
         {
             InitializeComponent();
 
-            AutoHookCheckBox.IsChecked = Convert.ToBoolean(Common.appSettings.AutoHook);
-            AutoDetachCheckBox.IsChecked = Convert.ToBoolean(Common.appSettings.AutoDetach);
+            AutoHookCheckBox.IsChecked = Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoHook);
+            AutoDetachCheckBox.IsChecked = Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoDetach);
         }
 
         private void AutoHookCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.AutoHook = Convert.ToString(AutoHookCheckBox.IsChecked);
+            Misaka.Settings.Legacy.Instance.appSettings.AutoHook = Convert.ToString(AutoHookCheckBox.IsChecked);
         }
 
         private void AutoDetachCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.AutoDetach = Convert.ToString(AutoDetachCheckBox.IsChecked);
+            Misaka.Settings.Legacy.Instance.appSettings.AutoDetach = Convert.ToString(AutoDetachCheckBox.IsChecked);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

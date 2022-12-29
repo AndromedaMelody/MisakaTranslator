@@ -32,11 +32,11 @@
     <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{796cda3a-9f31-4164-b054-77c521cb88e0}</ProjectGuid>
-    <ProjectName>Misaka.AppEnv</ProjectName>
-    <RootNamespace>$(ProjectName)</RootNamespace>
+    <ProjectName>Misaka.Settings</ProjectName>
+    <RootNamespace>Misaka.Settings</RootNamespace>
     <DefaultLanguage>en</DefaultLanguage>
     <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
-    <AppContainerApplication>true</AppContainerApplication>
+    <AppContainerApplication>false</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
@@ -53,24 +53,24 @@
     <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
     <WholeProgramOptimization Condition="'$(Configuration)'=='Release'">true</WholeProgramOptimization>
-    <_VC_Target_Library_Platform>Desktop</_VC_Target_Library_Platform>
-    <UseCrtSDKReference>false</UseCrtSDKReference>
     <SupportLTL>true</SupportLTL>
     <CleanImport>true</CleanImport>
+    <_VC_Target_Library_Platform>Desktop</_VC_Target_Library_Platform>
+    <UseCrtSDKReference>false</UseCrtSDKReference>
+    <_NoWinAPIFamilyApp>true</_NoWinAPIFamilyApp>
+    <CoreLibraryDependencies Condition="'$(MinimalCoreWin)'=='true'">kernel32.lib;user32.lib</CoreLibraryDependencies>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>Percompilation.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
-      <!--Temporarily disable cppwinrt heap enforcement to work around xaml compiler generated std::shared_ptr use -->
       <AdditionalOptions Condition="'$(CppWinRTHeapEnforcement)'==''">/DWINRT_NO_MAKE_DETECTION %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <EnableModules>true</EnableModules>
       <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -87,29 +87,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Percompilation.h" />
-    <ClInclude Include="PackageInfo.h" />
-    <ClCompile Include="Percompilation.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-      <DependentUpon>Percompilation.h</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="PackageInfo.cpp">
-      <DependentUpon>PackageInfo.h</DependentUpon>
-    </ClCompile>
+    <None Include="Module.def" />
     <ClCompile Include="$(GeneratedFilesDir)\module.g.cpp">
       <DependentUpon>Module.def</DependentUpon>
     </ClCompile>
-    <Midl Include="PackageInfo.idl">
-      <DependentUpon>PackageInfo.h</DependentUpon>
-    </Midl>
-    <None Include="Module.def" />
+  </ItemGroup>
+  <ItemGroup Label="Package">
+    <ClInclude Include="Package.h">
+      <DependentUpon>Package.idl</DependentUpon>
+    </ClInclude>
+    <ClCompile Include="Package.cpp">
+      <DependentUpon>Package.idl</DependentUpon>
+    </ClCompile>
+    <Midl Include="Package.idl" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.CppWinRT">
       <Version>2.0.220608.4</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Windows.ImplementationLibrary">
-      <Version>1.0.220201.1</Version>
     </PackageReference>
     <PackageReference Include="VC-LTL">
       <Version>5.0.5</Version>

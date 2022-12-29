@@ -40,21 +40,21 @@ namespace Misaka.WPF
             }
 
 
-            if (Common.appSettings.ttsVoice == "")
+            if (Misaka.Settings.Legacy.Instance.appSettings.ttsVoice == "")
             {
                 Growl.InfoGlobal(Application.Current.Resources["TranslateWin_NoTTS_Hint"].ToString());
             }
             else
             {
-                _textSpeechHelper.SetTTSVoice(Common.appSettings.ttsVoice);
-                _textSpeechHelper.SetVolume(Common.appSettings.ttsVolume);
-                _textSpeechHelper.SetRate(Common.appSettings.ttsRate);
+                _textSpeechHelper.SetTTSVoice(Misaka.Settings.Legacy.Instance.appSettings.ttsVoice);
+                _textSpeechHelper.SetVolume(Misaka.Settings.Legacy.Instance.appSettings.ttsVolume);
+                _textSpeechHelper.SetRate(Misaka.Settings.Legacy.Instance.appSettings.ttsRate);
             }
 
-            if (Common.appSettings.xxgPath != string.Empty)
+            if (Misaka.Settings.Legacy.Instance.appSettings.xxgPath != string.Empty)
             {
                 _dict = new XxgJpzhDict();
-                _dict.DictInit(Common.appSettings.xxgPath, string.Empty);
+                _dict.DictInit(Misaka.Settings.Legacy.Instance.appSettings.xxgPath, string.Empty);
             }
 
             string ret = _dict.SearchInDict(sourceWord);

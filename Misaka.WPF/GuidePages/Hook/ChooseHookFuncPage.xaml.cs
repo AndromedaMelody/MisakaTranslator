@@ -38,7 +38,7 @@ namespace Misaka.WPF.GuidePages.Hook
             HookFunListView.ItemsSource = lstData;
             sum = 0;
             Common.textHooker.HFSevent += DataRecvEventHandler;
-            Common.textHooker.StartHook(Convert.ToBoolean(Common.appSettings.AutoHook));
+            Common.textHooker.StartHook(Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoHook));
         }
 
         public void DataRecvEventHandler(object sender, HookSelectRecvEventArgs e) {
@@ -85,7 +85,7 @@ namespace Misaka.WPF.GuidePages.Hook
                 usedHook.Add(hookAdd);
 
                 //用户开启了自动卸载
-                if (Convert.ToBoolean(Common.appSettings.AutoDetach) == true) {
+                if (Convert.ToBoolean(Misaka.Settings.Legacy.Instance.appSettings.AutoDetach) == true) {
                     Common.textHooker.DetachUnrelatedHooks(pid, usedHook);
                 }
 

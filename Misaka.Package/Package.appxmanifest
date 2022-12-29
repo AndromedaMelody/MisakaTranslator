@@ -12,7 +12,7 @@
     Version="2.1000.0.0" />
 
   <Properties>
-    <DisplayName>MisakaTranslator</DisplayName>
+    <DisplayName>ms-resource:///App/Manifest/DisplayName</DisplayName>
     <PublisherDisplayName>MisakaProject</PublisherDisplayName>
     <Logo>Assets\PackageLogo.png</Logo>
   </Properties>
@@ -37,8 +37,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="MisakaTranslator"
-        Description="MisakaTranslator"
+        DisplayName="ms-resource:///App/Manifest/DisplayName"
+        Description="ms-resource:///App/Manifest/DisplayName"
         BackgroundColor="transparent" Square150x150Logo="Assets\MediumTile.png" Square44x44Logo="Assets\AppIcon.png">
         <uap:DefaultTile Square71x71Logo="Assets\SmallTile.png" Wide310x150Logo="Assets\WideTile.png" Square310x310Logo="Assets\LargeTile.png">
           <uap:ShowNameOnTiles>
@@ -54,6 +54,5 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />
-    <rescap:Capability Name="allowElevation" />
   </Capabilities>
 </Package>

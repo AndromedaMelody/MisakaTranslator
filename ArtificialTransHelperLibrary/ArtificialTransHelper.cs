@@ -1,4 +1,4 @@
-﻿using Misaka.AppEnv;
+﻿using Misaka.Settings;
 using SQLHelperLibrary;
 using System;
 using System.Collections.Generic;
@@ -14,17 +14,17 @@ namespace ArtificialTransHelperLibrary
         public SQLHelper sqlite;
 
         public ArtificialTransHelper(string gameName) {
-            if (!Directory.Exists(PackageInfo.LocalFolder + "\\ArtificialTranslation"))
-                Directory.CreateDirectory(PackageInfo.LocalFolder + "\\ArtificialTranslation");
+            if (!Directory.Exists(Package.DataPath + "\\ArtificialTranslation"))
+                Directory.CreateDirectory(Package.DataPath + "\\ArtificialTranslation");
 
 
-            if (File.Exists(PackageInfo.LocalFolder + "\\ArtificialTranslation\\MisakaAT_" + gameName + ".sqlite") == false)
+            if (File.Exists(Package.DataPath + "\\ArtificialTranslation\\MisakaAT_" + gameName + ".sqlite") == false)
             {
                 CreateNewNounTransDB(gameName);
             }
             else
             {
-                sqlite = new SQLHelper(PackageInfo.LocalFolder + "\\ArtificialTranslation\\MisakaAT_" + gameName + ".sqlite");
+                sqlite = new SQLHelper(Package.DataPath + "\\ArtificialTranslation\\MisakaAT_" + gameName + ".sqlite");
             }
         }
 
@@ -92,7 +92,7 @@ namespace ArtificialTransHelperLibrary
         /// <param name="gameName"></param>
         private void CreateNewNounTransDB(string gameName)
         {
-           sqlite = new SQLHelper(PackageInfo.LocalFolder + "\\ArtificialTranslation\\MisakaAT_" + gameName + ".sqlite");
+           sqlite = new SQLHelper(Package.DataPath + "\\ArtificialTranslation\\MisakaAT_" + gameName + ".sqlite");
             sqlite.ExecuteSql("CREATE TABLE artificialtrans(id INTEGER PRIMARY KEY AUTOINCREMENT,source TEXT,machineTrans TEXT,userTrans TEXT);");
         }
 

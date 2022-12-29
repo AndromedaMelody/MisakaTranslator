@@ -17,14 +17,14 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         public IBMTransSettingsPage()
         {
             InitializeComponent();
-            IBMTransApiKeyBox.Text = Common.appSettings.IBMApiKey;
-            IBMTransURLBox.Text = Common.appSettings.IBMURL;
+            IBMTransApiKeyBox.Text = Misaka.Settings.Legacy.Instance.appSettings.IBMApiKey;
+            IBMTransURLBox.Text = Misaka.Settings.Legacy.Instance.appSettings.IBMURL;
         }
 
         private async void AuthTestBtn_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.IBMApiKey = IBMTransApiKeyBox.Text;
-            Common.appSettings.IBMURL = IBMTransURLBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.IBMApiKey = IBMTransApiKeyBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.IBMURL = IBMTransURLBox.Text;
             ITranslator IBMTrans = new IBMTranslator();
             IBMTrans.TranslatorInit(IBMTransApiKeyBox.Text, IBMTransURLBox.Text);
 
