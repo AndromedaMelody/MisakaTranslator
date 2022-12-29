@@ -78,15 +78,15 @@ namespace Misaka.WPF.GuidePages.Hook
                 {
                     case "RepairFun_RemoveSingleWordRepeat":
                         sqliteH.ExecuteSql(
-                            $"UPDATE game_library SET repair_func = '{Common.UsingRepairFunc}',repair_param_a = '{Common.repairSettings.SingleWordRepeatTimes}' WHERE gameid = {Common.GameID};");
+                            $"UPDATE game_library SET repair_func = '{Common.UsingRepairFunc}',repair_param_a = '{Misaka.Settings.Legacy.Instance.repairSettings.SingleWordRepeatTimes}' WHERE gameid = {Common.GameID};");
                         break;
                     case "RepairFun_RemoveSentenceRepeat":
                         sqliteH.ExecuteSql(
-                            $"UPDATE game_library SET repair_func = '{Common.UsingRepairFunc}',repair_param_a = '{Common.repairSettings.SentenceRepeatFindCharNum}' WHERE gameid = {Common.GameID};");
+                            $"UPDATE game_library SET repair_func = '{Common.UsingRepairFunc}',repair_param_a = '{Misaka.Settings.Legacy.Instance.repairSettings.SentenceRepeatFindCharNum}' WHERE gameid = {Common.GameID};");
                         break;
                     case "RepairFun_RegexReplace":
                         sqliteH.ExecuteSql(
-                            $"UPDATE game_library SET repair_func = '{Common.UsingRepairFunc}',repair_param_a = '{Common.repairSettings.Regex}',repair_param_b = '{Common.repairSettings.Regex_Replace}' WHERE gameid = {Common.GameID};");
+                            $"UPDATE game_library SET repair_func = '{Common.UsingRepairFunc}',repair_param_a = '{Misaka.Settings.Legacy.Instance.repairSettings.Regex}',repair_param_b = '{Misaka.Settings.Legacy.Instance.repairSettings.Regex_Replace}' WHERE gameid = {Common.GameID};");
                         break;
                     default:
                         sqliteH.ExecuteSql(
@@ -106,7 +106,7 @@ namespace Misaka.WPF.GuidePages.Hook
         {
             if (!int.TryParse(Single_TextBox.Text, out int times))
                 return;
-            Common.repairSettings.SingleWordRepeatTimes = times;
+            Misaka.Settings.Legacy.Instance.repairSettings.SingleWordRepeatTimes = times;
             Common.RepairFuncInit();
             repairedTextBox.Text = TextRepair.RepairFun_RemoveSingleWordRepeat(sourceTextBox.Text);
             Single_InputDrawer.IsOpen = false;
@@ -116,7 +116,7 @@ namespace Misaka.WPF.GuidePages.Hook
         {
             if (!int.TryParse(Sentence_TextBox.Text, out int num))
                 return;
-            Common.repairSettings.SentenceRepeatFindCharNum = num;
+            Misaka.Settings.Legacy.Instance.repairSettings.SentenceRepeatFindCharNum = num;
             Common.RepairFuncInit();
             repairedTextBox.Text = TextRepair.RepairFun_RemoveSentenceRepeat(sourceTextBox.Text);
             Sentence_InputDrawer.IsOpen = false;
@@ -124,8 +124,8 @@ namespace Misaka.WPF.GuidePages.Hook
 
         private void RegexConfirm_Click(object sender, RoutedEventArgs e)
         {
-            Common.repairSettings.Regex = Regex_TextBox.Text;
-            Common.repairSettings.Regex_Replace = Replace_TextBox.Text;
+            Misaka.Settings.Legacy.Instance.repairSettings.Regex = Regex_TextBox.Text;
+            Misaka.Settings.Legacy.Instance.repairSettings.Regex_Replace = Replace_TextBox.Text;
             Common.RepairFuncInit();
             repairedTextBox.Text = TextRepair.RepairFun_RegexReplace(sourceTextBox.Text);
             Regex_InputDrawer.IsOpen = false;

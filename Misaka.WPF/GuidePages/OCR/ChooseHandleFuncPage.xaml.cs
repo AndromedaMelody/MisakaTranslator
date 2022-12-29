@@ -54,7 +54,7 @@ namespace Misaka.WPF.GuidePages.OCR
         private async void OCRTestBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Common.appSettings.OCRsource == "TesseractOCR")
+            if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "TesseractOCR")
             {
                 if (Common.ocr.OCR_Init("", "") != false)
                 {
@@ -73,9 +73,9 @@ namespace Misaka.WPF.GuidePages.OCR
                     HandyControl.Controls.Growl.Error($"TesseractOCR {Application.Current.Resources["APITest_Error_Hint"]}\n{Common.ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "BaiduOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "BaiduOCR")
             {
-                if (Common.ocr.OCR_Init(Common.appSettings.BDOCR_APIKEY, Common.appSettings.BDOCR_SecretKey))
+                if (Common.ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.BDOCR_APIKEY, Misaka.Settings.Legacy.Instance.appSettings.BDOCR_SecretKey))
                 {
                     string res = await Common.ocr.OCRProcessAsync();
 
@@ -92,9 +92,9 @@ namespace Misaka.WPF.GuidePages.OCR
                     HandyControl.Controls.Growl.Error($"百度智能云OCR {Application.Current.Resources["APITest_Error_Hint"]}\n{Common.ocr.GetLastError()}");
                 }
             }
-            else if (Common.appSettings.OCRsource == "BaiduFanyiOCR")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "BaiduFanyiOCR")
             {
-                if (Common.ocr.OCR_Init(Common.appSettings.BDappID, Common.appSettings.BDsecretKey))
+                if (Common.ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.BDappID, Misaka.Settings.Legacy.Instance.appSettings.BDsecretKey))
                 {
                     string res = await Common.ocr.OCRProcessAsync();
 
@@ -106,9 +106,9 @@ namespace Misaka.WPF.GuidePages.OCR
                 else
                     HandyControl.Controls.Growl.Error($"百度翻译OCR {Application.Current.Resources["APITest_Error_Hint"]}\n{Common.ocr.GetLastError()}");
             }
-            else if (Common.appSettings.OCRsource == "Tesseract5")
+            else if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "Tesseract5")
             {
-                if (Common.ocr.OCR_Init(Common.appSettings.Tesseract5OCR_Path, Common.appSettings.Tesseract5OCR_Args))
+                if (Common.ocr.OCR_Init(Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Path, Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args))
                 {
                     string res = await Common.ocr.OCRProcessAsync();
 
@@ -126,7 +126,7 @@ namespace Misaka.WPF.GuidePages.OCR
                     HandyControl.Controls.Growl.Error($"Tesseract5 {Application.Current.Resources["APITest_Error_Hint"]}\n{Common.ocr.GetLastError()}");
                 }
             }
-            else if(Common.appSettings.OCRsource == "WinRtOCR")
+            else if(Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "WinRtOCR")
             {
                 if (Common.ocr.OCR_Init("", "") != false)
                 {

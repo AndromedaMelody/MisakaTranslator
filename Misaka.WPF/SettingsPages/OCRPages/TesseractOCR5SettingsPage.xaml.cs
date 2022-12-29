@@ -37,10 +37,10 @@ namespace Misaka.WPF.SettingsPages.OCRPages
         public TesseractOCR5SettingsPage()
         {
             InitializeComponent();
-            PathBox.Text = Common.appSettings.Tesseract5OCR_Path;
-            ArgsBox.Text = Common.appSettings.Tesseract5OCR_Args;
+            PathBox.Text = Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Path;
+            ArgsBox.Text = Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args;
             SelectBox.ItemsSource = itemList;
-            SelectBox.SelectedIndex = valueList.IndexOf(Common.appSettings.Tesseract5OCR_Mode);
+            SelectBox.SelectedIndex = valueList.IndexOf(Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Mode);
             SyncModeAndArgs();
         }
 
@@ -57,7 +57,7 @@ namespace Misaka.WPF.SettingsPages.OCRPages
                 else
                 {
                     PathBox.Text = dialog.FileName;
-                    Common.appSettings.Tesseract5OCR_Path = dialog.FileName;
+                    Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Path = dialog.FileName;
                 }
             }
         }
@@ -66,31 +66,31 @@ namespace Misaka.WPF.SettingsPages.OCRPages
         {
             if (SelectBox.SelectedValue != null)
             {
-                Common.appSettings.Tesseract5OCR_Mode = modeLst[(string)SelectBox.SelectedValue];
+                Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Mode = modeLst[(string)SelectBox.SelectedValue];
                 SyncModeAndArgs();
             }
         }
 
         private void SyncModeAndArgs()
         {
-            switch (Common.appSettings.Tesseract5OCR_Mode)
+            switch (Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Mode)
             {
                 case "jpn":
-                    Common.appSettings.Tesseract5OCR_Args = "-l jpn --psm 6";
-                    ArgsBox.Text = Common.appSettings.Tesseract5OCR_Args;
+                    Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args = "-l jpn --psm 6";
+                    ArgsBox.Text = Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args;
                     ArgsBox.IsEnabled = false;
                     break;
                 case "jpn_vert":
-                    Common.appSettings.Tesseract5OCR_Args = "-l jpn_vert --psm 5";
-                    ArgsBox.Text = Common.appSettings.Tesseract5OCR_Args;
+                    Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args = "-l jpn_vert --psm 5";
+                    ArgsBox.Text = Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args;
                     ArgsBox.IsEnabled = false;
                     break;
                 case "eng":
-                    Common.appSettings.Tesseract5OCR_Args = ArgsBox.Text = "--psm 6";
+                    Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args = ArgsBox.Text = "--psm 6";
                     ArgsBox.IsEnabled = false;
                     break;
                 default:
-                    Common.appSettings.Tesseract5OCR_Args = ArgsBox.Text;
+                    Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args = ArgsBox.Text;
                     ArgsBox.IsEnabled = true;
                     break;
             }
@@ -98,12 +98,12 @@ namespace Misaka.WPF.SettingsPages.OCRPages
 
         private void ArgsBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Common.appSettings.Tesseract5OCR_Args = ArgsBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Args = ArgsBox.Text;
         }
 
         private void PathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Common.appSettings.Tesseract5OCR_Path = PathBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.Tesseract5OCR_Path = PathBox.Text;
         }
     }
 }

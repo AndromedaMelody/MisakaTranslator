@@ -78,25 +78,25 @@ namespace Misaka.WPF
             _mecabHelper = new MecabHelper();
 
             _textSpeechHelper = new TextSpeechHelper();
-            if (Common.appSettings.ttsVoice == "")
+            if (Misaka.Settings.Legacy.Instance.appSettings.ttsVoice == "")
             {
                 Growl.InfoGlobal(Application.Current.Resources["TranslateWin_NoTTS_Hint"].ToString());
             }
             else {
-                _textSpeechHelper.SetTTSVoice(Common.appSettings.ttsVoice);
-                _textSpeechHelper.SetVolume(Common.appSettings.ttsVolume);
-                _textSpeechHelper.SetRate(Common.appSettings.ttsRate);
+                _textSpeechHelper.SetTTSVoice(Misaka.Settings.Legacy.Instance.appSettings.ttsVoice);
+                _textSpeechHelper.SetVolume(Misaka.Settings.Legacy.Instance.appSettings.ttsVolume);
+                _textSpeechHelper.SetRate(Misaka.Settings.Legacy.Instance.appSettings.ttsRate);
             }
 
-            if (Common.appSettings.xxgPath != string.Empty)
+            if (Misaka.Settings.Legacy.Instance.appSettings.xxgPath != string.Empty)
             {
                 _dict = new XxgJpzhDict();
-                _dict.DictInit(Common.appSettings.xxgPath, string.Empty);
+                _dict.DictInit(Misaka.Settings.Legacy.Instance.appSettings.xxgPath, string.Empty);
             }
 
             IsNotPausedFlag = true;
-            _translator1 = TranslatorAuto(Common.appSettings.FirstTranslator);
-            _translator2 = TranslatorAuto(Common.appSettings.SecondTranslator);
+            _translator1 = TranslatorAuto(Misaka.Settings.Legacy.Instance.appSettings.FirstTranslator);
+            _translator2 = TranslatorAuto(Misaka.Settings.Legacy.Instance.appSettings.SecondTranslator);
 
             _beforeTransHandle = new BeforeTransHandle(Convert.ToString(Common.GameID), Common.UsingSrcLang, Common.UsingDstLang);
             _afterTransHandle = new AfterTransHandle(_beforeTransHandle);
@@ -155,27 +155,27 @@ namespace Misaka.WPF
         /// </summary>
         private void UI_Init()
         {
-            SourceTextFontSize = (int)Common.appSettings.TF_srcTextSize;
-            FirstTransText.FontSize = Common.appSettings.TF_firstTransTextSize;
-            SecondTransText.FontSize = Common.appSettings.TF_secondTransTextSize;
+            SourceTextFontSize = (int)Misaka.Settings.Legacy.Instance.appSettings.TF_srcTextSize;
+            FirstTransText.FontSize = Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextSize;
+            SecondTransText.FontSize = Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextSize;
 
-            SourceTextFont = Common.appSettings.TF_srcTextFont;
-            FirstTransText.FontFamily = new FontFamily(Common.appSettings.TF_firstTransTextFont);
-            SecondTransText.FontFamily = new FontFamily(Common.appSettings.TF_secondTransTextFont);
+            SourceTextFont = Misaka.Settings.Legacy.Instance.appSettings.TF_srcTextFont;
+            FirstTransText.FontFamily = new FontFamily(Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextFont);
+            SecondTransText.FontFamily = new FontFamily(Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextFont);
 
             BrushConverter brushConverter = new BrushConverter();
-            FirstTransText.Fill = (Brush)brushConverter.ConvertFromString(Common.appSettings.TF_firstTransTextColor);
-            SecondTransText.Fill = (Brush)brushConverter.ConvertFromString(Common.appSettings.TF_secondTransTextColor);
+            FirstTransText.Fill = (Brush)brushConverter.ConvertFromString(Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextColor);
+            SecondTransText.Fill = (Brush)brushConverter.ConvertFromString(Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextColor);
 
-            BackWinChrome.Background = (Brush)brushConverter.ConvertFromString(Common.appSettings.TF_BackColor);
-            BackWinChrome.Opacity = Common.appSettings.TF_Opacity / 100;
+            BackWinChrome.Background = (Brush)brushConverter.ConvertFromString(Misaka.Settings.Legacy.Instance.appSettings.TF_BackColor);
+            BackWinChrome.Opacity = Misaka.Settings.Legacy.Instance.appSettings.TF_Opacity / 100;
 
-            if (int.Parse(Common.appSettings.TF_LocX) != -1 && int.Parse(Common.appSettings.TF_SizeW) != 0)
+            if (int.Parse(Misaka.Settings.Legacy.Instance.appSettings.TF_LocX) != -1 && int.Parse(Misaka.Settings.Legacy.Instance.appSettings.TF_SizeW) != 0)
             {
-                this.Left = int.Parse(Common.appSettings.TF_LocX);
-                this.Top = int.Parse(Common.appSettings.TF_LocY);
-                this.Width = int.Parse(Common.appSettings.TF_SizeW);
-                this.Height = int.Parse(Common.appSettings.TF_SizeH);
+                this.Left = int.Parse(Misaka.Settings.Legacy.Instance.appSettings.TF_LocX);
+                this.Top = int.Parse(Misaka.Settings.Legacy.Instance.appSettings.TF_LocY);
+                this.Width = int.Parse(Misaka.Settings.Legacy.Instance.appSettings.TF_SizeW);
+                this.Height = int.Parse(Misaka.Settings.Legacy.Instance.appSettings.TF_SizeH);
             }
         }
 
@@ -190,31 +190,31 @@ namespace Misaka.WPF
             {
                 case "BaiduTranslator":
                     BaiduTranslator bd = new BaiduTranslator();
-                    bd.TranslatorInit(Common.appSettings.BDappID, Common.appSettings.BDsecretKey);
+                    bd.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.BDappID, Misaka.Settings.Legacy.Instance.appSettings.BDsecretKey);
                     return bd;
                 case "TencentFYJTranslator":
                     TencentFYJTranslator tx = new TencentFYJTranslator();
-                    tx.TranslatorInit(Common.appSettings.TXappID, Common.appSettings.TXappKey);
+                    tx.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.TXappID, Misaka.Settings.Legacy.Instance.appSettings.TXappKey);
                     return tx;
                 case "TencentOldTranslator":
                     TencentOldTranslator txo = new TencentOldTranslator();
-                    txo.TranslatorInit(Common.appSettings.TXOSecretId, Common.appSettings.TXOSecretKey);
+                    txo.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.TXOSecretId, Misaka.Settings.Legacy.Instance.appSettings.TXOSecretKey);
                     return txo;
                 case "CaiyunTranslator":
                     CaiyunTranslator cy = new CaiyunTranslator();
-                    cy.TranslatorInit(Common.appSettings.CaiyunToken);
+                    cy.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.CaiyunToken);
                     return cy;
                 case "XiaoniuTranslator":
                     XiaoniuTranslator xt = new XiaoniuTranslator();
-                    xt.TranslatorInit(Common.appSettings.xiaoniuApiKey);
+                    xt.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.xiaoniuApiKey);
                     return xt;
                 case "IBMTranslator":
                     IBMTranslator it = new IBMTranslator();
-                    it.TranslatorInit(Common.appSettings.IBMApiKey, Common.appSettings.IBMURL);
+                    it.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.IBMApiKey, Misaka.Settings.Legacy.Instance.appSettings.IBMURL);
                     return it;
                 case "YandexTranslator":
                     YandexTranslator yt = new YandexTranslator();
-                    yt.TranslatorInit(Common.appSettings.YandexApiKey);
+                    yt.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.YandexApiKey);
                     return yt;
                 case "YoudaoTranslator":
                     YoudaoTranslator yd = new YoudaoTranslator();
@@ -230,23 +230,23 @@ namespace Misaka.WPF
                     return gct;
                 case "JBeijingTranslator":
                     JBeijingTranslator bj = new JBeijingTranslator();
-                    bj.TranslatorInit(Common.appSettings.JBJCTDllPath);
+                    bj.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.JBJCTDllPath);
                     return bj;
                 case "KingsoftFastAITTranslator":
                     KingsoftFastAITTranslator kfat = new KingsoftFastAITTranslator();
-                    kfat.TranslatorInit(Common.appSettings.KingsoftFastAITPath);
+                    kfat.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.KingsoftFastAITPath);
                     return kfat;
                 case "Dreye":
                     DreyeTranslator drt = new DreyeTranslator();
-                    drt.TranslatorInit(Common.appSettings.DreyePath);
+                    drt.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.DreyePath);
                     return drt;
                 case "DeepLTranslator":
                     DeepLTranslator deepl = new DeepLTranslator();
-                    deepl.TranslatorInit(Common.appSettings.DeepLsecretKey, Common.appSettings.DeepLsecretKey);
+                    deepl.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.DeepLsecretKey, Misaka.Settings.Legacy.Instance.appSettings.DeepLsecretKey);
                     return deepl;
                 case "ArtificialTranslator":
                     ArtificialTranslator at = new ArtificialTranslator();
-                    at.TranslatorInit(Common.appSettings.ArtificialPatchPath);
+                    at.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.ArtificialPatchPath);
                     return at;
                 default:
                     return null;
@@ -301,11 +301,11 @@ namespace Misaka.WPF
 
             if (!string.IsNullOrEmpty(srcText))
             {
-                if (Common.appSettings.OCRsource == "BaiduFanyiOCR")
+                if (Misaka.Settings.Legacy.Instance.appSettings.OCRsource == "BaiduFanyiOCR")
                     Application.Current.Dispatcher.Invoke(() => {FirstTransText.Text = srcText;});
                 else
                 {
-                    if (!Common.appSettings.EachRowTrans) // 不启用分行翻译
+                    if (!Misaka.Settings.Legacy.Instance.appSettings.EachRowTrans) // 不启用分行翻译
                         if(Common.UsingSrcLang == "en")
                             srcText = srcText.Replace("\n", " ").Replace("\r", " ");
                         else
@@ -315,7 +315,7 @@ namespace Misaka.WPF
                 }
             }
             else if (!string.IsNullOrEmpty(Common.ocr.GetLastError()))
-                Growl.WarningGlobal(Common.appSettings.OCRsource + " Error: " + Common.ocr.GetLastError());
+                Growl.WarningGlobal(Misaka.Settings.Legacy.Instance.appSettings.OCRsource + " Error: " + Common.ocr.GetLastError());
             else
                 Growl.WarningGlobal("[OCR]自动识别三次均为空，请自行刷新！");
 
@@ -367,7 +367,7 @@ namespace Misaka.WPF
             //2.进行去重
             string repairedText = TextRepair.RepairFun_Auto(Common.UsingRepairFunc, source);
 
-            if (!Common.appSettings.EachRowTrans) // 不启用分行翻译
+            if (!Misaka.Settings.Legacy.Instance.appSettings.EachRowTrans) // 不启用分行翻译
                 if(Common.UsingSrcLang == "en")
                     repairedText = repairedText.Replace("<br>", " ").Replace("</br>", " ").Replace("\n", " ").Replace("\r", " ").Replace("\t", " ");
                 else
@@ -387,7 +387,7 @@ namespace Misaka.WPF
         {
             //补充:如果去重之后的文本长度超过指定值（默认100），直接不翻译、不显示
             //补充2：如果去重后文本长度为0，则不翻译不显示
-            if (repairedText.Length != 0 && repairedText.Length <= Common.appSettings.TransLimitNums)
+            if (repairedText.Length != 0 && repairedText.Length <= Misaka.Settings.Legacy.Instance.appSettings.TransLimitNums)
             {
                 //2.5 清除面板
                 Application.Current.Dispatcher.Invoke(() =>
@@ -485,7 +485,7 @@ namespace Misaka.WPF
 
 
                         //是否打开假名标注
-                        if (Common.appSettings.TF_isKanaShow)
+                        if (Misaka.Settings.Legacy.Instance.appSettings.TF_isKanaShow)
                         {
                             stackPanel.Children.Add(textBlock);
                             SourceTextPanel.Children.Add(stackPanel);
@@ -578,7 +578,7 @@ namespace Misaka.WPF
                     _gameTextHistory.Enqueue(repairedText + "\n" + afterString);
 
                     //9.翻译原句和结果记录到数据库
-                    if (Common.appSettings.ATon)
+                    if (Misaka.Settings.Legacy.Instance.appSettings.ATon)
                     {
                         bool addRes = _artificialTransHelper.AddTrans(repairedText, afterString);
                         if (addRes == false)
@@ -607,7 +607,7 @@ namespace Misaka.WPF
             }
             else
             {
-                BackWinChrome.Opacity = Common.appSettings.TF_Opacity / 100;
+                BackWinChrome.Opacity = Misaka.Settings.Legacy.Instance.appSettings.TF_Opacity / 100;
                 ChangeSizeButton.Foreground = Brushes.PapayaWhip;
             }
 
@@ -663,10 +663,10 @@ namespace Misaka.WPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Common.appSettings.TF_LocX = Convert.ToString((int)this.Left);
-            Common.appSettings.TF_LocY = Convert.ToString((int)this.Top);
-            Common.appSettings.TF_SizeW = Convert.ToString((int)this.ActualWidth);
-            Common.appSettings.TF_SizeH = Convert.ToString((int)this.ActualHeight);
+            Misaka.Settings.Legacy.Instance.appSettings.TF_LocX = Convert.ToString((int)this.Left);
+            Misaka.Settings.Legacy.Instance.appSettings.TF_LocY = Convert.ToString((int)this.Top);
+            Misaka.Settings.Legacy.Instance.appSettings.TF_SizeW = Convert.ToString((int)this.ActualWidth);
+            Misaka.Settings.Legacy.Instance.appSettings.TF_SizeH = Convert.ToString((int)this.ActualHeight);
 
             if (hook != null)
             {
@@ -762,7 +762,7 @@ namespace Misaka.WPF
             }
             else
             {
-                BackWinChrome.Opacity = Math.Max(Common.appSettings.TF_Opacity / 100, 0.01);
+                BackWinChrome.Opacity = Math.Max(Misaka.Settings.Legacy.Instance.appSettings.TF_Opacity / 100, 0.01);
                 _isLocked = false;
                 LockButton.Content = "";
             }

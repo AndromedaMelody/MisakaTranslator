@@ -56,48 +56,48 @@ namespace Misaka.WPF
             sourceFont.SelectionChanged += delegate
             {
                 translateWin.SourceTextFont = FontList[sourceFont.SelectedIndex];
-                Common.appSettings.TF_srcTextFont = FontList[sourceFont.SelectedIndex];
+                Misaka.Settings.Legacy.Instance.appSettings.TF_srcTextFont = FontList[sourceFont.SelectedIndex];
             };
 
             firstFont.SelectionChanged += delegate
             {
                 translateWin.FirstTransText.FontFamily = new FontFamily(FontList[firstFont.SelectedIndex]);
-                Common.appSettings.TF_firstTransTextFont = FontList[firstFont.SelectedIndex];
+                Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextFont = FontList[firstFont.SelectedIndex];
             };
 
             secondFont.SelectionChanged += delegate
             {
                 translateWin.SecondTransText.FontFamily = new FontFamily(FontList[secondFont.SelectedIndex]);
-                Common.appSettings.TF_secondTransTextFont = FontList[secondFont.SelectedIndex];
+                Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextFont = FontList[secondFont.SelectedIndex];
             };
 
             sourceFontSize.ValueChanged += delegate
             {
                 translateWin.SourceTextFontSize = (int) sourceFontSize.Value;
-                Common.appSettings.TF_srcTextSize = sourceFontSize.Value;
+                Misaka.Settings.Legacy.Instance.appSettings.TF_srcTextSize = sourceFontSize.Value;
             };
 
             firstFontSize.ValueChanged += delegate
             {
                 translateWin.FirstTransText.FontSize = firstFontSize.Value;
-                Common.appSettings.TF_firstTransTextSize = firstFontSize.Value;
+                Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextSize = firstFontSize.Value;
             };
 
             secondFontSize.ValueChanged += delegate
             {
                 translateWin.SecondTransText.FontSize = secondFontSize.Value;
-                Common.appSettings.TF_secondTransTextSize = secondFontSize.Value;
+                Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextSize = secondFontSize.Value;
             };
 
             OpacityBar.ValueChanged += delegate
             {
                 translateWin.BackWinChrome.Opacity = OpacityBar.Value / 100;
-                Common.appSettings.TF_Opacity = OpacityBar.Value;
+                Misaka.Settings.Legacy.Instance.appSettings.TF_Opacity = OpacityBar.Value;
             };
 
             KanaCheckBox.Click += delegate
             {
-                Common.appSettings.TF_isKanaShow = (bool)KanaCheckBox.IsChecked;
+                Misaka.Settings.Legacy.Instance.appSettings.TF_isKanaShow = (bool)KanaCheckBox.IsChecked;
             };
         }
 
@@ -107,34 +107,34 @@ namespace Misaka.WPF
         private void UI_Init()
         {
             BrushConverter brushConverter = new BrushConverter();
-            BgColorBlock.Background = (Brush) brushConverter.ConvertFromString(Common.appSettings.TF_BackColor);
-            firstColorBlock.Background = (Brush) brushConverter.ConvertFromString(Common.appSettings.TF_firstTransTextColor);
-            secondColorBlock.Background = (Brush) brushConverter.ConvertFromString(Common.appSettings.TF_secondTransTextColor);
+            BgColorBlock.Background = (Brush) brushConverter.ConvertFromString(Misaka.Settings.Legacy.Instance.appSettings.TF_BackColor);
+            firstColorBlock.Background = (Brush) brushConverter.ConvertFromString(Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextColor);
+            secondColorBlock.Background = (Brush) brushConverter.ConvertFromString(Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextColor);
 
             for (int i = 0; i < FontList.Count; i++)
             {
-                if (Common.appSettings.TF_srcTextFont == FontList[i])
+                if (Misaka.Settings.Legacy.Instance.appSettings.TF_srcTextFont == FontList[i])
                 {
                     sourceFont.SelectedIndex = i;
                 }
 
-                if (Common.appSettings.TF_firstTransTextFont == FontList[i])
+                if (Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextFont == FontList[i])
                 {
                     firstFont.SelectedIndex = i;
                 }
 
-                if (Common.appSettings.TF_secondTransTextFont == FontList[i])
+                if (Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextFont == FontList[i])
                 {
                     secondFont.SelectedIndex = i;
                 }
             }
 
-            sourceFontSize.Value = Common.appSettings.TF_srcTextSize;
-            firstFontSize.Value = Common.appSettings.TF_firstTransTextSize;
-            secondFontSize.Value = Common.appSettings.TF_secondTransTextSize;
+            sourceFontSize.Value = Misaka.Settings.Legacy.Instance.appSettings.TF_srcTextSize;
+            firstFontSize.Value = Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextSize;
+            secondFontSize.Value = Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextSize;
 
-            OpacityBar.Value = Common.appSettings.TF_Opacity;
-            KanaCheckBox.IsChecked = Common.appSettings.TF_isKanaShow;
+            OpacityBar.Value = Misaka.Settings.Legacy.Instance.appSettings.TF_Opacity;
+            KanaCheckBox.IsChecked = Misaka.Settings.Legacy.Instance.appSettings.TF_isKanaShow;
         }
 
         private void ChooseColorBtn_Click(object sender, RoutedEventArgs e)
@@ -156,19 +156,19 @@ namespace Misaka.WPF
                 {
                     BgColorBlock.Background = picker.SelectedBrush;
                     translateWin.BackWinChrome.Background = picker.SelectedBrush;
-                    Common.appSettings.TF_BackColor = picker.SelectedBrush.ToString();
+                    Misaka.Settings.Legacy.Instance.appSettings.TF_BackColor = picker.SelectedBrush.ToString();
                 }
                 else if (sender == firstColorBtn)
                 {
                     firstColorBlock.Background = picker.SelectedBrush;
                     translateWin.FirstTransText.Fill = picker.SelectedBrush;
-                    Common.appSettings.TF_firstTransTextColor = picker.SelectedBrush.ToString();
+                    Misaka.Settings.Legacy.Instance.appSettings.TF_firstTransTextColor = picker.SelectedBrush.ToString();
                 }
                 else if (sender == secondColorBtn)
                 {
                     secondColorBlock.Background = picker.SelectedBrush;
                     translateWin.SecondTransText.Fill = picker.SelectedBrush;
-                    Common.appSettings.TF_secondTransTextColor = picker.SelectedBrush.ToString();
+                    Misaka.Settings.Legacy.Instance.appSettings.TF_secondTransTextColor = picker.SelectedBrush.ToString();
                 }
                 window.Close();
             };

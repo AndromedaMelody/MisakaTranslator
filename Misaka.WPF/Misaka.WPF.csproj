@@ -27,7 +27,8 @@
     <ProjectReference Include="..\DictionaryHelperLibrary\DictionaryHelperLibrary.csproj" />
     <ProjectReference Include="..\KeyboardMouseHookLibrary\KeyboardMouseHookLibrary.csproj" />
     <ProjectReference Include="..\MecabHelperLibrary\MecabHelperLibrary.csproj" />
-    <ProjectReference Include="..\Misaka.AppEnv\Misaka.AppEnv.vcxproj" />
+    <ProjectReference Include="..\Misaka.Settings.Legacy\Misaka.Settings.Legacy.csproj" />
+    <ProjectReference Include="..\Misaka.Settings\Misaka.Settings.vcxproj" />
     <ProjectReference Include="..\OCRLibrary\OCRLibrary.csproj" />
     <ProjectReference Include="..\SQLHelperLibrary\SQLHelperLibrary.csproj" />
     <ProjectReference Include="..\TextHookLibrary\TextHookLibrary.csproj" />
@@ -38,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Config.Net" Version="4.19.0" />
     <PackageReference Include="HandyControl" Version="3.3.0" />
   </ItemGroup>
 

@@ -24,14 +24,14 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         public TencentOldTransSettingsPage()
         {
             InitializeComponent();
-            TransAppIDBox.Text = Common.appSettings.TXOSecretId;
-            TransSecretKeyBox.Text = Common.appSettings.TXOSecretKey;
+            TransAppIDBox.Text = Misaka.Settings.Legacy.Instance.appSettings.TXOSecretId;
+            TransSecretKeyBox.Text = Misaka.Settings.Legacy.Instance.appSettings.TXOSecretKey;
         }
 
         private async void AuthTestBtn_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.TXOSecretId = TransAppIDBox.Text;
-            Common.appSettings.TXOSecretKey = TransSecretKeyBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.TXOSecretId = TransAppIDBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.TXOSecretKey = TransSecretKeyBox.Text;
             ITranslator Trans = new TencentOldTranslator();
             Trans.TranslatorInit(TransAppIDBox.Text, TransSecretKeyBox.Text);
             if (await Trans.TranslateAsync("apple", "zh", "en") != null)
@@ -62,7 +62,7 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         private async void TransTestBtn_Click(object sender, RoutedEventArgs e)
         {
             ITranslator Trans = new TencentOldTranslator();
-            Trans.TranslatorInit(Common.appSettings.TXOSecretId, Common.appSettings.TXOSecretKey);
+            Trans.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.TXOSecretId, Misaka.Settings.Legacy.Instance.appSettings.TXOSecretKey);
             string res = await Trans.TranslateAsync(TestSrcText.Text, TestDstLang.Text, TestSrcLang.Text);
             if (res != null)
             {

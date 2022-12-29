@@ -24,12 +24,12 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         public DeepLTransSettingsPage()
         {
             InitializeComponent();
-            DeepLTransSecretKeyBox.Text = Common.appSettings.DeepLsecretKey;
+            DeepLTransSecretKeyBox.Text = Misaka.Settings.Legacy.Instance.appSettings.DeepLsecretKey;
         }
 
         private async void AuthTestBtn_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.DeepLsecretKey = DeepLTransSecretKeyBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.DeepLsecretKey = DeepLTransSecretKeyBox.Text;
             ITranslator deepLTrans = new DeepLTranslator();
             deepLTrans.TranslatorInit(DeepLTransSecretKeyBox.Text, DeepLTransSecretKeyBox.Text);
 

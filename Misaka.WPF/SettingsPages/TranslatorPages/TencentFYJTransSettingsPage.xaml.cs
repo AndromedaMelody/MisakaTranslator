@@ -24,14 +24,14 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         public TencentFYJTransSettingsPage()
         {
             InitializeComponent();
-            TransAppIDBox.Text = Common.appSettings.TXappID;
-            TransSecretKeyBox.Text = Common.appSettings.TXappKey;
+            TransAppIDBox.Text = Misaka.Settings.Legacy.Instance.appSettings.TXappID;
+            TransSecretKeyBox.Text = Misaka.Settings.Legacy.Instance.appSettings.TXappKey;
         }
 
         private async void AuthTestBtn_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.TXappID = TransAppIDBox.Text;
-            Common.appSettings.TXappKey = TransSecretKeyBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.TXappID = TransAppIDBox.Text;
+            Misaka.Settings.Legacy.Instance.appSettings.TXappKey = TransSecretKeyBox.Text;
             ITranslator Trans = new TencentFYJTranslator();
             Trans.TranslatorInit(TransAppIDBox.Text, TransSecretKeyBox.Text);
             if (await Trans.TranslateAsync("apple", "zh", "en") != null)
@@ -62,7 +62,7 @@ namespace Misaka.WPF.SettingsPages.TranslatorPages
         private async void TransTestBtn_Click(object sender, RoutedEventArgs e)
         {
             ITranslator Trans = new TencentFYJTranslator();
-            Trans.TranslatorInit(Common.appSettings.TXappID, Common.appSettings.TXappKey);
+            Trans.TranslatorInit(Misaka.Settings.Legacy.Instance.appSettings.TXappID, Misaka.Settings.Legacy.Instance.appSettings.TXappKey);
             string res = await Trans.TranslateAsync(TestSrcText.Text, TestDstLang.Text, TestSrcLang.Text);
             if (res != null)
             {

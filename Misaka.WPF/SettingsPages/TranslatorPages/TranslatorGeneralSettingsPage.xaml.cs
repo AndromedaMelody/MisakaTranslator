@@ -30,34 +30,34 @@ namespace Misaka.WPF.SettingsPages
             FirstTransCombox.ItemsSource = TranslatorList;
             SecondTransCombox.ItemsSource = TranslatorList;
 
-            FirstTransCombox.SelectedIndex = CommonFunction.GetTranslatorIndex(Common.appSettings.FirstTranslator);
-            SecondTransCombox.SelectedIndex = CommonFunction.GetTranslatorIndex(Common.appSettings.SecondTranslator);
+            FirstTransCombox.SelectedIndex = CommonFunction.GetTranslatorIndex(Misaka.Settings.Legacy.Instance.appSettings.FirstTranslator);
+            SecondTransCombox.SelectedIndex = CommonFunction.GetTranslatorIndex(Misaka.Settings.Legacy.Instance.appSettings.SecondTranslator);
 
-            EachRowTransCheckBox.IsChecked = Common.appSettings.EachRowTrans;
+            EachRowTransCheckBox.IsChecked = Misaka.Settings.Legacy.Instance.appSettings.EachRowTrans;
 
-            TransLimitBox.Value = Common.appSettings.TransLimitNums;
+            TransLimitBox.Value = Misaka.Settings.Legacy.Instance.appSettings.TransLimitNums;
             // 给TransLimitBox添加Minimum后，初始化它时就会触发一次ValueChanged，导致Settings被设为1，因此只能从设置中读取数据后再添加事件处理函数
             TransLimitBox.ValueChanged += TransLimitBox_ValueChanged;
         }
 
         private void FirstTransCombox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Common.appSettings.FirstTranslator = CommonFunction.lstTranslator[(string)FirstTransCombox.SelectedValue];
+            Misaka.Settings.Legacy.Instance.appSettings.FirstTranslator = CommonFunction.lstTranslator[(string)FirstTransCombox.SelectedValue];
         }
 
         private void SecondTransCombox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Common.appSettings.SecondTranslator = CommonFunction.lstTranslator[(string)SecondTransCombox.SelectedValue];
+            Misaka.Settings.Legacy.Instance.appSettings.SecondTranslator = CommonFunction.lstTranslator[(string)SecondTransCombox.SelectedValue];
         }
 
         private void EachRowTransCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            Common.appSettings.EachRowTrans = EachRowTransCheckBox.IsChecked ?? false;
+            Misaka.Settings.Legacy.Instance.appSettings.EachRowTrans = EachRowTransCheckBox.IsChecked ?? false;
         }
 
         private void TransLimitBox_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
         {
-            Common.appSettings.TransLimitNums = (int)TransLimitBox.Value;
+            Misaka.Settings.Legacy.Instance.appSettings.TransLimitNums = (int)TransLimitBox.Value;
         }
     }
 }

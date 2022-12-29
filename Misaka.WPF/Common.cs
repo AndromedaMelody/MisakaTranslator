@@ -20,9 +20,6 @@ namespace Misaka.WPF
 {
     public class Common
     {
-        public static IAppSettings appSettings; //应用设置
-        public static IRepeatRepairSettings repairSettings; //去重方法参数
-
         public static int transMode; //全局使用中的翻译模式 1=hook 2=ocr
 
         public static int GameID; //全局使用中的游戏ID(数据库)
@@ -85,10 +82,10 @@ namespace Misaka.WPF
         /// </summary>
         public static void RepairFuncInit()
         {
-            TextRepair.SingleWordRepeatTimes = repairSettings.SingleWordRepeatTimes;
-            TextRepair.SentenceRepeatFindCharNum = repairSettings.SentenceRepeatFindCharNum;
-            TextRepair.regexPattern = repairSettings.Regex;
-            TextRepair.regexReplacement = repairSettings.Regex_Replace;
+            TextRepair.SingleWordRepeatTimes = Misaka.Settings.Legacy.Instance.repairSettings.SingleWordRepeatTimes;
+            TextRepair.SentenceRepeatFindCharNum = Misaka.Settings.Legacy.Instance.repairSettings.SentenceRepeatFindCharNum;
+            TextRepair.regexPattern = Misaka.Settings.Legacy.Instance.repairSettings.Regex;
+            TextRepair.regexReplacement = Misaka.Settings.Legacy.Instance.repairSettings.Regex_Replace;
         }
 
         /// <summary>
