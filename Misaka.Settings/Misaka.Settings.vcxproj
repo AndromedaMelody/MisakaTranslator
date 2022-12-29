@@ -103,7 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.CppWinRT">
-      <Version>2.0.220608.4</Version>
+      <Version>2.0.221121.5</Version>
     </PackageReference>
     <PackageReference Include="VC-LTL">
       <Version>5.0.5</Version>

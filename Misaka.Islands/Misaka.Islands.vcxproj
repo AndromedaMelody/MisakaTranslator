@@ -173,19 +173,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.CppWinRT">
-      <Version>2.0.220608.4</Version>
+      <Version>2.0.221121.5</Version>
     </PackageReference>
     <PackageReference Include="Mile.Xaml">
-      <Version>1.1.425</Version>
+      <Version>1.1.434</Version>
     </PackageReference>
     <PackageReference Include="VC-LTL">
       <Version>5.0.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Misaka.AppEnv\Misaka.AppEnv.vcxproj">
-      <Project>{796cda3a-9f31-4164-b054-77c521cb88e0}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Misaka.Settings\Misaka.Settings.vcxproj">
       <Project>{796cda3a-9f31-4164-b054-77c521cb88e0}</Project>
     </ProjectReference>
