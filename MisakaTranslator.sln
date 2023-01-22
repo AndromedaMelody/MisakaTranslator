@@ -31,11 +31,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KeyboardMouseMonitor", "Key
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtificialTransHelperLibrary", "ArtificialTransHelperLibrary\ArtificialTransHelperLibrary.csproj", "{A6568552-A4D0-4546-ACE5-D8A710EE7E0E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3339AFE3-C28A-4413-B587-7A0ED142329B}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitItems", "GitItems", "{AE2803E8-A4CB-43A5-90DF-54176782790C}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
@@ -53,6 +48,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Misaka.Settings.Legacy", "Misaka.Settings.Legacy\Misaka.Settings.Legacy.csproj", "{50C2AF3E-01AB-4BB7-AD23-C28988735A22}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Misaka.Islands", "Misaka.Islands\Misaka.Islands.vcxproj", "{5746BC9E-CBB7-4956-B733-3DF01D5216AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misaka.Project", "Misaka.Project", "{2D763247-63A5-4ED9-B5D5-A07A7E1E2777}"
+	ProjectSection(SolutionItems) = preProject
+		Misaka.Project\Common.Platform.props = Misaka.Project\Common.Platform.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

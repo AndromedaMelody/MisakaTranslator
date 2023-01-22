@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="$(SolutionDir)\Misaka.Project\Common.Platform.props" />
+  
   <PropertyGroup>
     <TargetFramework>net481</TargetFramework>
-    <Platforms>x86;x64;ARM64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
