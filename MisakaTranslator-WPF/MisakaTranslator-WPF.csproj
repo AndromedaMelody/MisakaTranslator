@@ -37,12 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Config.Net" Version="5.1.5" />
-    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
-    <PackageReference Include="HandyControl" Version="3.4.0" />
-    <PackageReference Include="TesseractOCR" Version="5.2.14">
-      <Aliases>Tesseract</Aliases>
-    </PackageReference>
+    <PackageReference Include="Config.Net" />
+    <PackageReference Include="FontAwesome.WPF" />
+    <PackageReference Include="HandyControl" />
+    <PackageReference Include="TesseractOCR" />
   </ItemGroup>
 
 </Project>

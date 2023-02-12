@@ -13,10 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="TesseractOCR" Version="5.2.14">
-      <Aliases>Tesseract</Aliases>
-    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="TesseractOCR" />
   </ItemGroup>
 
 </Project>
