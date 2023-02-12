@@ -26,10 +26,12 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="System.Data.SQLite.Core" Version="1.0.115" />
     <PackageVersion Include="TesseractOCR" Version="5.2.14" Aliases="Tesseract" />
+    <GlobalPackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
     <GlobalPackageReference Include="VC-LTL" Version="5.0.5" />
+    <GlobalPackageReference Include="Microsoft.Windows.SDK.CPP.$(PlatformShortName)" Version="10.0.22621.755" />
   </ItemGroup>
 
 </Project>
