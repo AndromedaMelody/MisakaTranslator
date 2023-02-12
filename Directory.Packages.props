@@ -16,7 +16,7 @@
     <EnablePackageVersionOverride>false</EnablePackageVersionOverride>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
     <PackageVersion Include="Config.Net" Version="5.1.5" />
     <PackageVersion Include="DynamicLanguageRuntime" Version="1.3.0" />
     <PackageVersion Include="FontAwesome.WPF" Version="4.7.0.9" />
@@ -26,6 +26,10 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="System.Data.SQLite.Core" Version="1.0.115" />
     <PackageVersion Include="TesseractOCR" Version="5.2.14" Aliases="Tesseract" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+    <GlobalPackageReference Include="VC-LTL" Version="5.0.5" />
   </ItemGroup>
 
 </Project>
