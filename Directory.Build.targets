@@ -1,0 +1,22 @@
+<Project Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+
+  <ItemGroup Condition="'$(UseWin32)' == 'true'">
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.2.206-beta" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Windows.SDK.Win32Metadata" Version="48.0.19-preview" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and '$(_TargetFrameworkVersionWithoutV)' &gt;= '5.0'">
+      <PropertyGroup>
+        <IncludeWindowsSDKRefFrameworkReferences Condition="'$(UseWinRT)' != 'true'">false</IncludeWindowsSDKRefFrameworkReferences>
+        <IncludeWindowsSDKRefFrameworkReferences Condition="'$(UseWinRT)' == 'true'">true</IncludeWindowsSDKRefFrameworkReferences>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup Condition="'$(UseWinRT)' == 'true'">
+        <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="$([System.Version]::Parse('$(TargetPlatformVersion)').ToString(3)).*" PrivateAssets="all" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+</Project>

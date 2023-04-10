@@ -87,7 +87,7 @@ namespace MisakaTranslator_WPF.GuidePages.OCR
         void Hook_OnMouseActivity(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left) {
-                SelectedHwnd = FindWindowInfo.GetWindowHWND(e.X, e.Y);
+                SelectedHwnd = FindWindowInfo.GetWindowHWND(new System.Drawing.Point(e.X, e.Y)).ToInt32();
                 string gameName = FindWindowInfo.GetWindowName(SelectedHwnd);
                 int pid = FindWindowInfo.GetProcessIDByHWND(SelectedHwnd);
 

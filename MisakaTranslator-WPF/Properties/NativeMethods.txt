@@ -9,3 +9,14 @@ GetTokenInformation
 // Windows.Win32.System.Threading
 // function
 OpenProcessToken
+
+// Windows.Win32.UI.Shell
+// function
+StrCmpLogicalW
+
+// Windows.Win32.UI.WindowsAndMessaging
+// enum
+HWND_TOPMOST
+// function
+GetCursorPos
+SetWindowPos

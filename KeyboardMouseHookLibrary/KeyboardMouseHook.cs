@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace KeyboardMouseHookLibrary
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public delegate void MouseButtonEventHandler(object sender, POINT e);
+    public delegate void MouseButtonEventHandler(object sender, Point e);
 
     /// <summary>
     /// 键盘动作事件
@@ -113,10 +114,10 @@ namespace KeyboardMouseHookLibrary
                     if (res.Length == 3)
                     {
 
-                        POINT pt = new POINT()
+                        Point pt = new()
                         {
-                            x = int.Parse(res[1]),
-                            y = int.Parse(res[2])
+                            X = int.Parse(res[1]),
+                            Y = int.Parse(res[2])
                         };
 
                         OnMouseActivity?.Invoke(this, pt);

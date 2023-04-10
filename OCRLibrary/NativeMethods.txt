@@ -1,0 +1,19 @@
+// Windows.Win32.Graphics.Gdi
+// function
+BitBlt
+CreateCompatibleBitmap
+CreateCompatibleDC
+DeleteDC
+DeleteObject
+SelectObject
+GetWindowDC
+ReleaseDC
+
+// Windows.Win32.UI.WindowsAndMessaging
+// function
+DestroyIcon
+GetCursorPos
+GetDesktopWindow
+GetWindowRect
+PrivateExtractIcons
+ShowWindow

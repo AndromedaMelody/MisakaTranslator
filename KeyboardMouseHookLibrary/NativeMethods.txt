@@ -1,0 +1,32 @@
+// Windows.Win32.System.LibraryLoader
+// function
+GetModuleHandle
+
+// Windows.Win32.UI.Input.KeyboardAndMouse
+// function
+GetKeyboardState
+RegisterHotKey
+ToAscii
+UnregisterHotKey
+
+// Windows.Win32.UI.WindowsAndMessaging
+// enum
+WM_KEYDOWN
+WM_KEYUP
+WM_LBUTTONDBLCLK
+WM_LBUTTONDOWN
+WM_RBUTTONDBLCLK
+WM_RBUTTONDOWN
+WM_SYSKEYDOWN
+WM_SYSKEYUP
+// struct
+KBDLLHOOKSTRUCT
+MOUSEHOOKSTRUCT
+// function
+CallNextHookEx
+GetClassName
+GetWindowText
+GetWindowThreadProcessId
+SetWindowsHookEx
+UnhookWindowsHookEx
+WindowFromPoint

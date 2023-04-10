@@ -1,0 +1,4 @@
+// Windows.Win32.System.DataExchange
+// function
+ChangeClipboardChain
+SetClipboardViewer

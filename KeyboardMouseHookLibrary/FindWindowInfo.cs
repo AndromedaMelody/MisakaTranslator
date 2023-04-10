@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Win32;
 
 namespace KeyboardMouseHookLibrary
 {
     public class FindWindowInfo
     {
-        [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]//指定坐标处窗体句柄
-        public static extern int WindowFromPoint(
-            int xPoint,
-            int yPoint
-        );
-
         [DllImport("user32.dll", EntryPoint = "GetWindowText")]
         public static extern int GetWindowText(
             int hWnd,
@@ -38,14 +34,9 @@ namespace KeyboardMouseHookLibrary
         /// <summary>
         /// 获取指定坐标处窗口的句柄
         /// </summary>
-        /// <param name="mouseX"></param>
-        /// <param name="mouseY"></param>
-        /// <returns></returns>
-        public static int GetWindowHWND(int mouseX, int mouseY)
+        public static IntPtr GetWindowHWND(Point point)
         {
-
-            int hwnd = WindowFromPoint(mouseX, mouseY);
-            return hwnd;
+            return PInvoke.WindowFromPoint(point);
         }
 
         /// <summary>

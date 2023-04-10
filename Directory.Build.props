@@ -19,10 +19,6 @@
     <RuntimeIdentifiers>win;win-x86;win-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj' and $(TargetFramework.StartsWith('netcoreapp'))">
-    <IncludeWindowsSDKRefFrameworkReferences>false</IncludeWindowsSDKRefFrameworkReferences>
-  </PropertyGroup>
-
   <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.csproj' and $(TargetFramework.StartsWith('netframework'))">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
   </ItemGroup>
