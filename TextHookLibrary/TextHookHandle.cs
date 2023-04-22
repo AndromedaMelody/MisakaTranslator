@@ -148,13 +148,22 @@ namespace TextHookLibrary {
             ProcessTextractor.StartInfo.FileName = "TextractorCLI.exe";
             ProcessTextractor.StartInfo.CreateNoWindow = true;
             ProcessTextractor.StartInfo.UseShellExecute = false;
+#if NETCOREAPP
             ProcessTextractor.StartInfo.StandardInputEncoding = new UnicodeEncoding(false, false);
+#endif
             ProcessTextractor.StartInfo.StandardOutputEncoding = Encoding.Unicode;
             ProcessTextractor.StartInfo.RedirectStandardInput = true;
             ProcessTextractor.StartInfo.RedirectStandardOutput = true;
             ProcessTextractor.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
-            try {
+            try
+            {
+#if NETFRAMEWORK
+                Console.InputEncoding = new UnicodeEncoding(false, false);
+#endif
                 bool res = ProcessTextractor.Start();
+#if NETFRAMEWORK
+                //Console.InputEncoding = Encoding.Default;
+#endif
                 ProcessTextractor.BeginOutputReadLine();
                 Environment.CurrentDirectory = CurrentPath;//打开后即可恢复原目录
                 return res;
