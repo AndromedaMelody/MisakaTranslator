@@ -42,6 +42,7 @@
     <ProjectReference Include="..\ArtificialTransHelperLibrary\ArtificialTransHelperLibrary.csproj" />
     <ProjectReference Include="..\DictionaryHelperLibrary\DictionaryHelperLibrary.csproj" />
     <ProjectReference Include="..\KeyboardMouseHookLibrary\KeyboardMouseHookLibrary.csproj" />
+    <ProjectReference Include="..\KeyboardMouseMonitor\KeyboardMouseMonitor.csproj" />
     <ProjectReference Include="..\MecabHelperLibrary\MecabHelperLibrary.csproj" />
     <ProjectReference Include="..\OCRLibrary\OCRLibrary.csproj" />
     <ProjectReference Include="..\SQLHelperLibrary\SQLHelperLibrary.csproj" />
