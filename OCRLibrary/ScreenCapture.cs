@@ -25,23 +25,23 @@ namespace OCRLibrary
             int width = windowRect.right - windowRect.left;
             int height = windowRect.bottom - windowRect.top;
             // create a device context we can copy to
-            CreatedHDC hdcDest = PInvoke.CreateCompatibleDC(hdcSrc);
+            HDC hdcDest = PInvoke.CreateCompatibleDC(hdcSrc);
             // create a bitmap we can copy it to,
             // using GetDeviceCaps to get the width/height
             HBITMAP hBitmap = PInvoke.CreateCompatibleBitmap(hdcSrc, width, height);
             // select the bitmap object
-            HGDIOBJ hOld = PInvoke.SelectObject((HDC)hdcDest.Value, (HGDIOBJ)hBitmap.Value);
+            HGDIOBJ hOld = PInvoke.SelectObject(hdcDest, hBitmap);
             // bitblt over
-            PInvoke.BitBlt((HDC)hdcDest.Value, 0, 0, width, height, hdcSrc, 0, 0, ROP_CODE.SRCCOPY | ROP_CODE.CAPTUREBLT);
+            PInvoke.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, ROP_CODE.SRCCOPY | ROP_CODE.CAPTUREBLT);
             // restore selection
-            PInvoke.SelectObject((HDC)hdcDest.Value, hOld);
+            PInvoke.SelectObject(hdcDest, hOld);
             // clean up
             PInvoke.DeleteDC(hdcDest);
             PInvoke.ReleaseDC((HWND)handle, hdcSrc);
             // get a .NET image object for it
             Bitmap img = Image.FromHbitmap(hBitmap);
             // free up the Bitmap object
-            PInvoke.DeleteObject((HGDIOBJ)hBitmap.Value);
+            PInvoke.DeleteObject(hBitmap);
             return img;
         }
 
