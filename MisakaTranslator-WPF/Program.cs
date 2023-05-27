@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -12,26 +13,32 @@ namespace MisakaTranslator_WPF
     {
         static unsafe bool IsElevated()
         {
-            if (PInvoke.OpenProcessToken(Process.GetCurrentProcess().SafeHandle, TOKEN_ACCESS_MASK.TOKEN_ALL_ACCESS, out var hToken))
+            HANDLE hToken = HANDLE.Null;
+            if (PInvoke.OpenProcessToken((HANDLE)Process.GetCurrentProcess().Handle, TOKEN_ACCESS_MASK.TOKEN_ALL_ACCESS, &hToken))
             {
                 TOKEN_ELEVATION tokenType = new();
                 if (PInvoke.GetTokenInformation(hToken, TOKEN_INFORMATION_CLASS.TokenElevation, &tokenType, (uint)Marshal.SizeOf(tokenType), out var _))
                 {
+                    PInvoke.CloseHandle(hToken);
                     return (BOOL)(int)tokenType.TokenIsElevated;
                 }
+                PInvoke.CloseHandle(hToken);
             }
             return false;
         }
 
         static unsafe bool CanElevate()
         {
-            if (PInvoke.OpenProcessToken(Process.GetCurrentProcess().SafeHandle, TOKEN_ACCESS_MASK.TOKEN_ALL_ACCESS, out var hToken))
+            HANDLE hToken = HANDLE.Null;
+            if (PInvoke.OpenProcessToken((HANDLE)Process.GetCurrentProcess().Handle, TOKEN_ACCESS_MASK.TOKEN_ALL_ACCESS, &hToken))
             {
                 TOKEN_ELEVATION_TYPE tokenType = new();
                 if (PInvoke.GetTokenInformation(hToken, TOKEN_INFORMATION_CLASS.TokenElevationType, &tokenType, sizeof(TOKEN_ELEVATION_TYPE), out var _))
                 {
+                    PInvoke.CloseHandle(hToken);
                     return tokenType == TOKEN_ELEVATION_TYPE.TokenElevationTypeLimited;
                 }
+                PInvoke.CloseHandle(hToken);
             }
             return false;
         }

@@ -3,6 +3,7 @@
   <ItemGroup Condition="'$(UseWin32)' == 'true'">
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.2.206-beta" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Windows.SDK.Win32Metadata" Version="48.0.19-preview" PrivateAssets="all" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)\NativeMethods.json" Visible="false" />
   </ItemGroup>
 
   <Choose>
