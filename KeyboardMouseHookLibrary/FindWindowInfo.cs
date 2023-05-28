@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace KeyboardMouseHookLibrary
 {
@@ -13,22 +14,16 @@ namespace KeyboardMouseHookLibrary
     {
         [DllImport("user32.dll", EntryPoint = "GetWindowText")]
         public static extern int GetWindowText(
-            int hWnd,
+            IntPtr hWnd,
             StringBuilder lpString,
             int nMaxCount
         );
 
         [DllImport("user32.dll", EntryPoint = "GetClassName")]
         public static extern int GetClassName(
-            int hWnd,
+            IntPtr hWnd,
             StringBuilder lpString,
             int nMaxCont
-        );
-
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        public static extern int GetWindowThreadProcessId(
-            IntPtr hwnd,
-            out int ID
         );
 
         /// <summary>
@@ -44,7 +39,7 @@ namespace KeyboardMouseHookLibrary
         /// </summary>
         /// <param name="hwnd"></param>
         /// <returns></returns>
-        public static string GetWindowName(int hwnd)
+        public static string GetWindowName(IntPtr hwnd)
         {
             StringBuilder name = new StringBuilder(256);
             GetWindowText(hwnd, name, 256);
@@ -56,7 +51,7 @@ namespace KeyboardMouseHookLibrary
         /// </summary>
         /// <param name="hwnd"></param>
         /// <returns></returns>
-        public static string GetWindowClassName(int hwnd)
+        public static string GetWindowClassName(IntPtr hwnd)
         {
             StringBuilder name = new StringBuilder(256);
             GetClassName(hwnd, name, 256);
@@ -68,13 +63,11 @@ namespace KeyboardMouseHookLibrary
         /// </summary>
         /// <param name="hwnd"></param>
         /// <returns></returns>
-        public static int GetProcessIDByHWND(int hwnd)
+        public static unsafe uint GetProcessIDByHWND(IntPtr hWnd)
         {
-            int oo;
-            IntPtr ip = new IntPtr(hwnd);
-            GetWindowThreadProcessId(ip, out oo);
-            return oo;
+            uint result;
+            PInvoke.GetWindowThreadProcessId((HWND)hWnd, &result);
+            return result;
         }
-
     }
 }

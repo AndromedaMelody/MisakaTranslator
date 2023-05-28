@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Windows.Win32;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace OCRLibrary
 {
@@ -28,14 +30,6 @@ namespace OCRLibrary
             int nIcons,      //The number of icons to extract from the file. Only valid when *.exe and *.dll
             int flags        //Specifies flags that control this function.
         );
-
-        //details:https://msdn.microsoft.com/en-us/library/windows/desktop/ms648063(v=vs.85).aspx
-        //Destroys an icon and frees any memory the icon occupied.
-        [DllImport("User32.dll")]
-        public static extern bool DestroyIcon(
-            IntPtr hIcon //A handle to the icon to be destroyed. The icon must not be in use.
-        );
-
 
         public static Dictionary<string, string> lstHandleFun = new Dictionary<string, string>() {
             { "不进行处理" , "ImgFunc_NoDeal" },
@@ -310,7 +304,7 @@ namespace OCRLibrary
                     myIcon = ico.ToBitmap();
                 }
                 //内存回收
-                DestroyIcon(hIcons[i]);
+                PInvoke.DestroyIcon((HICON)hIcons[i]);
             }
 
             return myIcon;

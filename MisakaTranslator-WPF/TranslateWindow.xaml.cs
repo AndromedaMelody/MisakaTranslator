@@ -290,7 +290,7 @@ namespace MisakaTranslator_WPF
         /// <param name="e"></param>
         private void Hook_OnMouseActivity(object sender, System.Drawing.Point e)
         {
-            if (Common.isAllWindowCap && Process.GetCurrentProcess().Id != FindWindowInfo.GetProcessIDByHWND(FindWindowInfo.GetWindowHWND(e).ToInt32())
+            if (Common.isAllWindowCap && Process.GetCurrentProcess().Id != FindWindowInfo.GetProcessIDByHWND(FindWindowInfo.GetWindowHWND(e))
                 || Common.OCRWinHwnd == FindWindowInfo.GetWindowHWND(e))
             {
                 TranslateEventOcr();

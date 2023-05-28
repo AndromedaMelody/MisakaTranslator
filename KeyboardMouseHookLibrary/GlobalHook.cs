@@ -61,11 +61,11 @@ namespace KeyboardMouseHookLibrary
         /// <summary>
         /// 定义鼠标钩子句柄.
         /// </summary>
-        static int _hMouseHook = 0;
+        static HHOOK _hMouseHook = HHOOK.Null;
         /// <summary>
         /// 定义键盘钩子句柄
         /// </summary>
-        static int _hKeyboardHook = 0;
+        static HHOOK _hKeyboardHook = HHOOK.Null;
 
         /// <summary>
         /// 定义鼠标处理过程的委托对象
@@ -76,48 +76,26 @@ namespace KeyboardMouseHookLibrary
         /// </summary>
         HOOKPROC KeyboardHookProcedure;
 
-        //导入window 钩子扩展方法导入
-
-        /// <summary>
-        /// 安装钩子方法
-        /// </summary>
-        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        internal static extern int SetWindowsHookEx(int idHook, HOOKPROC lpfn, IntPtr hInstance, int threadId);
-
-        /// <summary>
-        /// 卸载钩子方法
-        /// </summary>
-        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool UnhookWindowsHookEx(int idHook);
-
-        //The ToAscii function translates the specified virtual-key code and keyboard state to the corresponding character or characters. The function translates the code using the input language and physical keyboard layout identified by the keyboard layout handle.
-
-        [DllImport("user32")]
-        public static extern int GetKeyboardState(byte[] pbKeyState);
-
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr GetModuleHandle(string name);
-
         public bool Start(string _moduleName)
         {
             moduleName = _moduleName;
 
             // install Mouse hook 
-            if (_hMouseHook == 0)
+            if (_hMouseHook.IsNull)
             {
                 // Create an instance of HookProc.
                 MouseHookProcedure = new(MouseHookProc);
                 try
                 {
-                    _hMouseHook = SetWindowsHookEx((int)WINDOWS_HOOK_ID.WH_MOUSE_LL,
+                    _hMouseHook = PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL,
                         MouseHookProcedure,
-                        GetModuleHandle(moduleName),
+                        PInvoke.GetModuleHandle(moduleName),
                         0);
                 }
                 catch (Exception err)
                 { return false; }
                 //如果安装鼠标钩子失败
-                if (_hMouseHook == 0)
+                if (_hMouseHook.IsNull)
                 {
                     Stop();
                     return false;
@@ -125,20 +103,20 @@ namespace KeyboardMouseHookLibrary
                 }
             }
             //安装键盘钩子
-            if (_hKeyboardHook == 0)
+            if (_hKeyboardHook.IsNull)
             {
                 KeyboardHookProcedure = new(KeyboardHookProc);
                 try
                 {
-                    _hKeyboardHook = SetWindowsHookEx((int)WINDOWS_HOOK_ID.WH_KEYBOARD_LL,
+                    _hKeyboardHook = PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_KEYBOARD_LL,
                         KeyboardHookProcedure,
-                        GetModuleHandle(moduleName),
+                        PInvoke.GetModuleHandle(moduleName),
                         0);
                 }
                 catch (Exception err2)
                 { return false; }
                 //如果安装键盘钩子失败
-                if (_hKeyboardHook == 0)
+                if (_hKeyboardHook.IsNull)
                 {
                     Stop();
                     return false;
@@ -152,15 +130,15 @@ namespace KeyboardMouseHookLibrary
         {
             bool retMouse = true;
             bool retKeyboard = true;
-            if (_hMouseHook != 0)
+            if (!_hMouseHook.IsNull)
             {
-                retMouse = UnhookWindowsHookEx(_hMouseHook);
-                _hMouseHook = 0;
+                retMouse = PInvoke.UnhookWindowsHookEx(_hMouseHook);
+                _hMouseHook = HHOOK.Null;
             }
-            if (_hKeyboardHook != 0)
+            if (!_hKeyboardHook.IsNull)
             {
-                retKeyboard = UnhookWindowsHookEx(_hKeyboardHook);
-                _hKeyboardHook = 0;
+                retKeyboard = PInvoke.UnhookWindowsHookEx(_hKeyboardHook);
+                _hKeyboardHook = HHOOK.Null;
             }
             //If UnhookWindowsHookEx fails.
             if (!(retMouse && retKeyboard))
@@ -172,15 +150,15 @@ namespace KeyboardMouseHookLibrary
         /// <summary>
         /// 卸载hook,如果进程强制结束,记录上次钩子id,并把根据钩子id来卸载它
         /// </summary>
-        public void Stop(int hMouseHook, int hKeyboardHook)
+        public void Stop(IntPtr hMouseHook, IntPtr hKeyboardHook)
         {
-            if (hMouseHook != 0)
+            if (hMouseHook != IntPtr.Zero)
             {
-                UnhookWindowsHookEx(hMouseHook);
+                PInvoke.UnhookWindowsHookEx((HHOOK)hMouseHook);
             }
-            if (hKeyboardHook != 0)
+            if (hKeyboardHook != IntPtr.Zero)
             {
-                UnhookWindowsHookEx(hKeyboardHook);
+                PInvoke.UnhookWindowsHookEx((HHOOK)hKeyboardHook);
             }
         }
 
@@ -243,7 +221,7 @@ namespace KeyboardMouseHookLibrary
                 if (KeyPress != null && wParam == PInvoke.WM_KEYDOWN)
                 {
                     byte[] keyState = new byte[256];
-                    GetKeyboardState(keyState);
+                    PInvoke.GetKeyboardState(keyState);
                     if (PInvoke.ToAscii(MyKeyboardHookStruct.vkCode,
                         MyKeyboardHookStruct.scanCode,
                         keyState,
