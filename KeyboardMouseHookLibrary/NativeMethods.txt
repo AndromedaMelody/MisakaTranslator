@@ -26,6 +26,7 @@ MOUSEHOOKSTRUCT
 CallNextHookEx
 GetClassName
 GetWindowText
+GetWindowTextLength
 GetWindowThreadProcessId
 SetWindowsHookEx
 UnhookWindowsHookEx

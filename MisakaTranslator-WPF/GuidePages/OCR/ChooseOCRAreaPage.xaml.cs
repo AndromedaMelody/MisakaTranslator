@@ -90,10 +90,11 @@ namespace MisakaTranslator_WPF.GuidePages.OCR
                 SelectedHwnd = FindWindowInfo.GetWindowHWND(new System.Drawing.Point(e.X, e.Y));
                 string gameName = FindWindowInfo.GetWindowName(SelectedHwnd);
                 uint pid = FindWindowInfo.GetProcessIDByHWND(SelectedHwnd);
+                string className = FindWindowInfo.GetWindowClassName(SelectedHwnd);
 
                 if (Process.GetCurrentProcess().Id != pid)
                 {
-                    WinNameTag.Text = "[实时]" + gameName + "—" + pid;
+                    WinNameTag.Text = $"[实时] {gameName} - {pid} - {className}";
                 }
                 hook.Stop();
                 IsChoosingWin = false;

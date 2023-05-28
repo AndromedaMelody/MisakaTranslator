@@ -12,20 +12,6 @@ namespace KeyboardMouseHookLibrary
 {
     public class FindWindowInfo
     {
-        [DllImport("user32.dll", EntryPoint = "GetWindowText")]
-        public static extern int GetWindowText(
-            IntPtr hWnd,
-            StringBuilder lpString,
-            int nMaxCount
-        );
-
-        [DllImport("user32.dll", EntryPoint = "GetClassName")]
-        public static extern int GetClassName(
-            IntPtr hWnd,
-            StringBuilder lpString,
-            int nMaxCont
-        );
-
         /// <summary>
         /// 获取指定坐标处窗口的句柄
         /// </summary>
@@ -39,10 +25,13 @@ namespace KeyboardMouseHookLibrary
         /// </summary>
         /// <param name="hwnd"></param>
         /// <returns></returns>
-        public static string GetWindowName(IntPtr hwnd)
+        public static unsafe string GetWindowName(IntPtr hwnd)
         {
-            StringBuilder name = new StringBuilder(256);
-            GetWindowText(hwnd, name, 256);
+            Span<char> name = stackalloc char[PInvoke.GetWindowTextLength((HWND)hwnd) + 1];
+            fixed(char* pName = name)
+            {
+                PInvoke.GetWindowText((HWND)hwnd, pName, name.Length);
+            }
             return name.ToString();
         }
 
@@ -51,10 +40,13 @@ namespace KeyboardMouseHookLibrary
         /// </summary>
         /// <param name="hwnd"></param>
         /// <returns></returns>
-        public static string GetWindowClassName(IntPtr hwnd)
+        public static unsafe string GetWindowClassName(IntPtr hwnd)
         {
-            StringBuilder name = new StringBuilder(256);
-            GetClassName(hwnd, name, 256);
+            Span<char> name = stackalloc char[256];
+            fixed(char* pName = name)
+            {
+                name = name.Slice(0, PInvoke.GetClassName((HWND)hwnd, pName, 256) + 1);
+            }
             return name.ToString();
         }
 

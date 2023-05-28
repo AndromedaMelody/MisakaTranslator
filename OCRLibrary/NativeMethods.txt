@@ -17,3 +17,5 @@ GetDesktopWindow
 GetWindowRect
 PrivateExtractIcons
 ShowWindow
+
+LoadImage
