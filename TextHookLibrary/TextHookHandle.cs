@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Win32;
 
 namespace TextHookLibrary {
     /// <summary>
@@ -144,25 +145,35 @@ namespace TextHookLibrary {
                 return false;
             }
 
-            ProcessTextractor = new Process();
-            ProcessTextractor.StartInfo.FileName = "TextractorCLI.exe";
-            ProcessTextractor.StartInfo.CreateNoWindow = true;
-            ProcessTextractor.StartInfo.UseShellExecute = false;
+            ProcessTextractor = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = "TextractorCLI.exe",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
 #if NETCOREAPP
-            ProcessTextractor.StartInfo.StandardInputEncoding = new UnicodeEncoding(false, false);
+                    StandardInputEncoding = new UnicodeEncoding(false, false),
 #endif
-            ProcessTextractor.StartInfo.StandardOutputEncoding = Encoding.Unicode;
-            ProcessTextractor.StartInfo.RedirectStandardInput = true;
-            ProcessTextractor.StartInfo.RedirectStandardOutput = true;
+                    StandardOutputEncoding = Encoding.Unicode,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true
+                },
+            };
+
             ProcessTextractor.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
             try
             {
 #if NETFRAMEWORK
+                // .NET Framework根据Console.InputEncoding编码在Start()中创建输入流
                 Console.InputEncoding = new UnicodeEncoding(false, false);
 #endif
                 bool res = ProcessTextractor.Start();
 #if NETFRAMEWORK
-                //Console.InputEncoding = Encoding.Default;
+                // Console.InputEncoding修改为非UTF16编码需要创建控制台
+                PInvoke.AllocConsole();
+                Console.InputEncoding = Encoding.Default;
+                PInvoke.FreeConsole();
 #endif
                 ProcessTextractor.BeginOutputReadLine();
                 Environment.CurrentDirectory = CurrentPath;//打开后即可恢复原目录
