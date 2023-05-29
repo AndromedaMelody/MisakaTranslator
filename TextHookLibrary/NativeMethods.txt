@@ -1,4 +1,3 @@
-// Windows.Win32.System.DataExchange
 // function
-ChangeClipboardChain
-SetClipboardViewer
+Windows.Win32.System.DataExchange.ChangeClipboardChain
+Windows.Win32.System.DataExchange.SetClipboardViewer
