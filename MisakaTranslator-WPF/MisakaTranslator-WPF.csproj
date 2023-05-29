@@ -27,15 +27,12 @@
 
   <ItemGroup>
     <AppxManifest Include="Properties\Package.appxmanifest" />
-    <AdditionalFiles Include="Properties\NativeMethods.txt" />
     <Resource Include="logo.ico" />
     <Resource Include="GuidePages\Completation.png" />
     <Resource Include="GuidePages\Completation_small.png" />
     <Resource Include="SettingsPages\AboutV2.jpg" />
     <Resource Include="SettingsPages\AboutV2_small.jpg" />
-    <None Update="textRepairPlugins\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Update="textRepairPlugins\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

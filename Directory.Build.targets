@@ -3,7 +3,11 @@
   <ItemGroup Condition="'$(UseWin32)' == 'true'">
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.2-beta" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Windows.SDK.Win32Metadata" Version="52.0.65-preview" PrivateAssets="all" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)\NativeMethods.json" Visible="false" />
+    <None Remove="NativeMethods.txt" Condition="Exists('NativeMethods.txt')" />
+    <AdditionalFiles Update="NativeMethods.txt" Link="Properties\NativeMethods.txt" Condition="Exists('NativeMethods.txt')" />
+    <AdditionalFiles Include="Properties\NativeMethods.txt" Condition="Exists('Properties\NativeMethods.txt')" />
+    <None Remove="NativeMethods.json" Condition="Exists('NativeMethods.json')" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)\NativeMethods.json" Link="Properties\NativeMethods.json" Condition="Exists('$(MSBuildThisFileDirectory)\NativeMethods.json')" />
   </ItemGroup>
 
   <Choose>
@@ -12,6 +16,9 @@
         <IncludeWindowsSDKRefFrameworkReferences Condition="'$(UseWinRT)' != 'true'">false</IncludeWindowsSDKRefFrameworkReferences>
         <IncludeWindowsSDKRefFrameworkReferences Condition="'$(UseWinRT)' == 'true'">true</IncludeWindowsSDKRefFrameworkReferences>
       </PropertyGroup>
+      <ItemGroup Condition="'$(UseWinRT)' == 'true'">
+        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.2" PrivateAssets="all" />
+      </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup Condition="'$(UseWinRT)' == 'true'">
