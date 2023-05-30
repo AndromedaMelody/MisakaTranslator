@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(PkgSQLitePCLRaw_lib_e_sqlite3)\runtimes\win-x86\native\e_sqlite3.dll" Link="runtimes\win-x86\native\e_sqlite3.dll" Visible="false" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="$(PkgSQLitePCLRaw_lib_e_sqlite3)\runtimes\win-x64\native\e_sqlite3.dll" Link="runtimes\win-x64\native\e_sqlite3.dll" Visible="false" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="$(PkgSQLitePCLRaw_lib_e_sqlite3)\runtimes\win-x86\native\e_sqlite3.dll" Link="runtimes\win-x86\native\e_sqlite3.dll" Visible="false" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="$(PkgSQLitePCLRaw_lib_e_sqlite3)\runtimes\win-x64\native\e_sqlite3.dll" Link="runtimes\win-x64\native\e_sqlite3.dll" Visible="false" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
