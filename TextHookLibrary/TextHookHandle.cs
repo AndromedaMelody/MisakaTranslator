@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -133,15 +134,10 @@ namespace TextHookLibrary {
         /// 初始化Textractor,建立CLI与本软件间的通信
         /// </summary>
         /// <returns>成功返回真，失败返回假</returns>
-        public bool Init(bool x86 = true) {
-            string Path = Environment.CurrentDirectory + @"\lib\TextHook\" + (x86 ? "x86" : "x64");//打开对应的Textractor
-            string CurrentPath = Environment.CurrentDirectory;
-            try {
-                Environment.CurrentDirectory = Path;//更改当前工作目录保证TextractorCLI正常运行
-            }
-#pragma warning disable 168
-            catch (System.IO.DirectoryNotFoundException ex) {
-#pragma warning restore 168
+        public bool Init(string path)
+        {
+            if(!File.Exists(path))
+            {
                 return false;
             }
 
@@ -149,7 +145,7 @@ namespace TextHookLibrary {
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    FileName = "TextractorCLI.exe",
+                    FileName = path,
                     CreateNoWindow = true,
                     UseShellExecute = false,
 #if NETCOREAPP
@@ -157,7 +153,8 @@ namespace TextHookLibrary {
 #endif
                     StandardOutputEncoding = Encoding.Unicode,
                     RedirectStandardInput = true,
-                    RedirectStandardOutput = true
+                    RedirectStandardOutput = true,
+                    WorkingDirectory = Path.GetDirectoryName(path)
                 },
             };
 
@@ -176,13 +173,12 @@ namespace TextHookLibrary {
                 PInvoke.FreeConsole();
 #endif
                 ProcessTextractor.BeginOutputReadLine();
-                Environment.CurrentDirectory = CurrentPath;//打开后即可恢复原目录
                 return res;
             }
-#pragma warning disable 168
-            catch (System.ComponentModel.Win32Exception ex) {
-#pragma warning restore 168
-                Environment.CurrentDirectory = CurrentPath;//恢复原目录
+            catch (System.ComponentModel.Win32Exception)
+            {
+                ProcessTextractor.Dispose();
+                ProcessTextractor = null;
                 return false;
             }
         }
