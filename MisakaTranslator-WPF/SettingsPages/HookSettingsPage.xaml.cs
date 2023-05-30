@@ -65,23 +65,23 @@ namespace MisakaTranslator_WPF.SettingsPages
         {
             if (File.Exists($@"{path}\TextractorCLI.exe"))
             {
-                if (path.Contains("86"))
+                if (path.Contains("x86"))
                 {
                     Path32Box.Text = $@"{path}\TextractorCLI.exe";
                     Common.appSettings.Textractor_Path32 = Path32Box.Text;
-                    if (File.Exists($@"{path}\..\x64\TextractorCLI.exe"))
+                    if (File.Exists($@"{path.Replace("x86", "x64")}\TextractorCLI.exe"))
                     {
-                        Path64Box.Text = new FileInfo($@"{path}\..\x64\TextractorCLI.exe").FullName;
+                        Path64Box.Text = $@"{path.Replace("x86", "x64")}\TextractorCLI.exe";
                         Common.appSettings.Textractor_Path64 = Path64Box.Text;
                     }
                 }
-                else if (path.Contains("64"))
+                else if (path.Contains("x64"))
                 {
                     Path64Box.Text = $@"{path}\TextractorCLI.exe";
                     Common.appSettings.Textractor_Path64 = Path64Box.Text;
-                    if (File.Exists($@"{path}\..\x86\TextractorCLI.exe"))
+                    if (File.Exists($@"{path.Replace("x64", "x86")}\TextractorCLI.exe"))
                     {
-                        Path32Box.Text = new FileInfo($@"{path}\..\x86\TextractorCLI.exe").FullName;
+                        Path32Box.Text = $@"{path.Replace("x64", "x86")}\TextractorCLI.exe";
                         Common.appSettings.Textractor_Path32 = Path32Box.Text;
                     }
                 }
