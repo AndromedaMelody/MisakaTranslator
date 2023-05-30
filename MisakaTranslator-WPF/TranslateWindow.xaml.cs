@@ -771,6 +771,8 @@ namespace MisakaTranslator_WPF
             dtimer.Stop();
 
             _mecabHelper.Dispose();
+
+            Common.mainWin.Visibility = Visibility.Visible;
         }
 
 
@@ -866,6 +868,8 @@ namespace MisakaTranslator_WPF
             dtimer.Interval = TimeSpan.FromMilliseconds(10);
             dtimer.Tick += dtimer_Tick;
             dtimer.Start();
+
+            Common.mainWin.Visibility = Visibility.Collapsed;
         }
 
         void dtimer_Tick(object sender, EventArgs e)
