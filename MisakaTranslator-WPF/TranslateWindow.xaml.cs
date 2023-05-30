@@ -451,7 +451,14 @@ namespace MisakaTranslator_WPF
                         stackPanel.Orientation = Orientation.Vertical;
                         stackPanel.Margin = new Thickness(10, 0, 0, 10);
 
-                        TextBlock textBlock = new TextBlock();
+                        System.Windows.Controls.TextBox textBlock = new()
+                        {
+                            IsReadOnly = true,
+                            Background = new SolidColorBrush(Colors.Transparent),
+                            BorderBrush = new SolidColorBrush(Colors.Transparent),
+                            Padding = new Thickness(0),
+                            Margin = new Thickness(0)
+                        };
                         if (!string.IsNullOrEmpty(SourceTextFont))
                         {
                             FontFamily fontFamily = new FontFamily(SourceTextFont);
