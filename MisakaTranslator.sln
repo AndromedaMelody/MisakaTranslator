@@ -27,8 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTSHelperLibrary", "TTSHelp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardMouseMonitor", "KeyboardMouseMonitor\KeyboardMouseMonitor.csproj", "{259361ED-FE9C-4F15-864D-88587EE19BD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtificialTransHelperLibrary", "ArtificialTransHelperLibrary\ArtificialTransHelperLibrary.csproj", "{A6568552-A4D0-4546-ACE5-D8A710EE7E0E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,10 +83,6 @@ Global
 		{259361ED-FE9C-4F15-864D-88587EE19BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{259361ED-FE9C-4F15-864D-88587EE19BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{259361ED-FE9C-4F15-864D-88587EE19BD9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6568552-A4D0-4546-ACE5-D8A710EE7E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6568552-A4D0-4546-ACE5-D8A710EE7E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6568552-A4D0-4546-ACE5-D8A710EE7E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6568552-A4D0-4546-ACE5-D8A710EE7E0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

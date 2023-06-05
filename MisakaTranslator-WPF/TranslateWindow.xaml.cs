@@ -19,7 +19,6 @@ using TextRepairLibrary;
 using TranslatorLibrary;
 using TransOptimizationLibrary;
 using TTSHelperLibrary;
-using ArtificialTransHelperLibrary;
 using System.Windows.Controls.Primitives;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -33,8 +32,6 @@ namespace MisakaTranslator_WPF
     public partial class TranslateWindow
     {
         public System.Windows.Threading.DispatcherTimer dtimer;//定时器 定时刷新位置
-
-        private ArtificialTransHelper _artificialTransHelper;
 
         private MecabHelper _mecabHelper;
         private BeforeTransHandle _beforeTransHandle;
@@ -111,8 +108,6 @@ namespace MisakaTranslator_WPF
 
             _beforeTransHandle = new BeforeTransHandle(Convert.ToString(Common.GameID), Common.UsingSrcLang, Common.UsingDstLang);
             _afterTransHandle = new AfterTransHandle(_beforeTransHandle);
-
-            _artificialTransHelper = new ArtificialTransHelper(Convert.ToString(Common.GameID));
 
             if (Common.transMode == 1)
             {
@@ -671,22 +666,6 @@ namespace MisakaTranslator_WPF
                         _gameTextHistory.Dequeue();
                     }
                     _gameTextHistory.Enqueue(repairedText + "\n" + afterString);
-                
-                    //9.翻译原句和结果记录到数据库 
-                    if (Common.appSettings.ATon)
-                    {
-                        bool addRes = _artificialTransHelper.AddTrans(repairedText, afterString);
-                        if (addRes == false)
-                        {
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                HandyControl.Data.GrowlInfo growlInfo = new HandyControl.Data.GrowlInfo();
-                                growlInfo.Message = Application.Current.Resources["ArtificialTransAdd_Error_Hint"].ToString();
-                                growlInfo.WaitTime = 2;
-                                Growl.InfoGlobal(growlInfo);
-                            });
-                        }
-                    }
                 }
             }
         }
@@ -885,14 +864,6 @@ namespace MisakaTranslator_WPF
                 //定时刷新窗口到顶层
                 PInvoke.SetWindowPos(winHandle, HWND.HWND_TOPMOST, 0, 0, 0, 0, SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOMOVE);
             }
-        }
-
-        private void ArtificialTransAdd_Item_Click(object sender, RoutedEventArgs e)
-        {
-            dtimer.Stop();
-            ArtificialTransAddWindow win = new ArtificialTransAddWindow(_currentsrcText,FirstTransText.Text,SecondTransText.Text);
-            win.ShowDialog();
-            dtimer.Start();
         }
     }
 }
